@@ -1,0 +1,33 @@
+<%- include('../components/header', {title: "Dashboard"}); %>
+<%- include('../components/nav', {dashboard: "active"}); %>
+    <div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
+      <%- include('../components/subheader', {index: "active", headline: "Welcome!"}); %>
+      <form class="uk-grid-small" uk-grid style="margin-top: 8%;">
+        <div class="uk-width-1-1">
+          <input class="uk-input" type="text" placeholder="Your description">
+        </div>
+        <div class="uk-width-1-2@s">
+          <input class="uk-input" type="text" placeholder="Your name">
+        </div>
+        <div class="uk-width-1-4@s">
+          <input class="uk-input" type="text" placeholder="Price/lesson">
+        </div>
+        <div class="uk-width-1-4@s">
+          <input class="uk-input" type="text" placeholder="Lesson duration">
+        </div>
+        <div class="uk-width-1-2@s">
+          <input class="uk-input" type="text" placeholder="Your city">
+        </div>
+        <div class="uk-width-1-2@s">
+          <input class="uk-input" type="text" placeholder="Your subjects">
+        </div>
+        <div class="uk-margin" uk-margin>
+          <div uk-form-custom="target: true">
+            <input type="file">
+            <input class="uk-input uk-form-width-medium" type="text" placeholder="Your profile picture" disabled>
+          </div>
+          <button class="uk-button uk-button-default">Submit</button>
+        </div>
+      </form>
+    </div>
+<%- include('../components/footer') %>

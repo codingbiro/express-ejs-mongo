@@ -1,0 +1,15 @@
+<a href="/profile">
+    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+      <div class="uk-card-media-left uk-cover-container">
+        <img src="<%= user.img %>" alt="" uk-cover>
+        <canvas width="300" height="200"></canvas>
+      </div>
+      <div>
+        <div class="uk-card-body">
+          <h3 class="uk-card-title"><%= user.name %></h3>
+          <div class="uk-card-badge uk-label">$<%= user.price %>/hour</div>
+          <p><%= user.desc %></p>
+        </div>
+      </div>
+    </div>
+</a>

@@ -1,0 +1,26 @@
+<%- include('components/header', {title: "Profile"}); %>
+<%- include('components/nav', {}); %>
+    <div class="uk-container uk-container-xsmall" style="padding-top: 40px;">
+      <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid style="margin-bottom: 40px;">
+        <div class="uk-card-media-left uk-cover-container">
+          <img src="<%= user.img %>" alt="" uk-cover>
+          <canvas width="600" height="400"></canvas>
+        </div>
+        <div>
+          <div class="uk-card-body">
+            <h3 class="uk-card-title"><%= user.name %></h3>
+            <a onclick="UIkit.notification({message: 'Success! The teacher will contact you soon.', status: 'success'})"><div class="uk-card-badge uk-label">Apply here!</div></a>
+            <p><%= user.desc %></p>
+          </div>
+        </div>
+      </div>
+      <dl class="uk-description-list uk-description-list-divider">
+        <dt>Price</dt>
+        <dd><%= user.price %></dd>
+        <dt>Description term</dt>
+        <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</dd>
+        <dt>Description term</dt>
+        <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</dd>
+      </dl>
+    </div>
+<%- include ('components/footer') %>

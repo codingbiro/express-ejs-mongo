@@ -1,0 +1,8 @@
+<%- include('../components/header', {title: "Applications"}); %>
+<%- include('../components/nav', {dashboard: "active"}); %>
+<div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
+<%- include('../components/subheader', {applications: "active", headline: "Your inbox"}); %>
+<% messages.forEach(function(msg){ %>
+  <%- include('../utils/message', {message: msg}); %>
+<% }); %>
+<%- include('../components/footer') %>

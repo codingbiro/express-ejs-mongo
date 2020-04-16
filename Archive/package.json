@@ -1,0 +1,19 @@
+{
+  "name": "matech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "ejs": "^3.0.2",
+    "epress": "0.0.1-security",
+    "express": "^4.17.1"
+  }
+}

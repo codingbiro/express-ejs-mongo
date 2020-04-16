@@ -1,0 +1,19 @@
+<%- include('components/header', {title: "Applications"}); %>
+<%- include('components/nav', {dashboard: "active"}); %>
+<div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
+<%- include('components/subheader', {applications: "active", headline: "Your inbox"}); %>
+      <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s" uk-grid style="margin-top: 8%;">
+        <div class="uk-card-media-left uk-cover-container">
+          <img src="http://placekitten.com/300/200" alt="" uk-cover>
+          <canvas width="300" height="200"></canvas>
+        </div>
+        <div>
+          <div class="uk-card-body">
+            <h3 class="uk-card-title">Feri</h3>
+            <div class="uk-card-badge uk-label">2 hours ago</div>
+            <strong>You can reach him: +3630 4200000 or feri@xd.com</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+<% include components/footer %>

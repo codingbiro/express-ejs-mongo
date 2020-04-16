@@ -1,0 +1,14 @@
+<div class="uk-width-1-2@s uk-width-2-5@m uk-position-left-out" style="padding: 20px;">
+      <ul class="uk-nav uk-nav-default">
+        <li<% if (index) { %> 
+            class="uk-active"
+        <% } %>><a href="/dashboard/">About you</a></li>
+        <li<% if (applications) { %> 
+            class="uk-active"
+        <% } %>><a href="/dashboard/applications/">Applications</a></li>
+        <li<% if (calendar) { %> 
+            class="uk-active"
+        <% } %>><a href="/dashboard/calendar/">My calendar</a></li>
+    </ul>
+</div>
+<h1 class="uk-heading-medium" style="padding-left: 20%;"><%= headline %></h1>
