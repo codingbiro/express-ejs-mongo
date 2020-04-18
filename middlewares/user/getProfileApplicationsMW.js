@@ -2,8 +2,7 @@
 
 module.exports = function (objectrepository) {
     return function (req, res, next) {
-        const users = getUsers();
-        res.locals.messages = users;
+        res.locals.messages = [];
         next();
     };
 };
