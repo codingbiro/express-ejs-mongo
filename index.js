@@ -1,13 +1,19 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
+// Using EJS templating
 app.set('view engine', 'ejs');
 
+// Static folder
 app.use(express.static('assets'));
 
 // Load routing
 require('./routes/index')(app);
 
-var server = app.listen(3000, function () {
-    console.log("Hi :3 000");
+// Port settings
+const PORT = 3000;
+
+// Start server
+const server = app.listen(PORT, function () {
+    console.log(`Hi port ${PORT}`);
 });

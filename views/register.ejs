@@ -1,7 +1,10 @@
 <%- include('components/header', {title: "Register"}); %>
 <%- include('components/nav', {register: "active"}); %>
-    <div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
-      <form style="text-align: center;">
+    <div class="uk-container uk-container-xsmall" style="padding-top: 5%; text-align: center;">
+      <%- include('utils/alert', {}); %>
+    </div>
+    <div class="uk-container uk-container-xsmall" style="padding-top: 5%;">
+      <form style="text-align: center;" method="post">
         <div class="uk-margin">
           <div class="uk-inline">
             <span class="uk-form-icon" uk-icon="icon: user"></span>
@@ -30,7 +33,7 @@
             <br><i> You cannot change this later.</i>
         </div>
         </div>
-        <button class="uk-button uk-button-default uk-button-small" type="button" onclick="UIkit.notification({message: 'Now you can log in with your credentials.', status: 'success'})">Register</button>
+        <input class="uk-button uk-button-default uk-button-small" type="submit" value="Register">
       </form>
       <dl class="uk-description-list uk-description-list-divider" style="padding: 40px 0px; text-align: center;">
         <dt>YOUR PRIVACY</dt>

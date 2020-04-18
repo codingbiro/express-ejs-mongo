@@ -1,26 +1,30 @@
 const authMW = require('../middlewares/auth/authMW');
 const checkPassMW = require('../middlewares/auth/checkPassMW');
 const renderMW = require('../middlewares/renderMW');
-const getProfilesMW = require('../middlewares/getProfilesMW');
-const getProfileMW = require('../middlewares/getProfileMW');
-const saveProfileDataMW = require('../middlewares/saveProfileDataMW');
-const getProfileDataMW = require('../middlewares/getProfileDataMW');
-const getProfileCalendarMW = require('../middlewares/getProfileCalendarMW');
+const getProfilesMW = require('../middlewares/user/getProfilesMW');
+const getProfileMW = require('../middlewares/user/getProfileMW');
+const saveProfileDataMW = require('../middlewares/user/saveProfileDataMW');
+const getProfileDataMW = require('../middlewares/user/getProfileDataMW');
+const getProfileCalendarMW = require('../middlewares/user/getProfileCalendarMW');
 const getDatesMW = require('../middlewares/getDatesMW');
-const saveProfileCalendarMW = require('../middlewares/saveProfileCalendarMW');
-const getProfileApplicationsMW = require('../middlewares/getProfileApplicationsMW');
+const saveProfileCalendarMW = require('../middlewares/user/saveProfileCalendarMW');
+const getProfileApplicationsMW = require('../middlewares/user/getProfileApplicationsMW');
 const resetPassMW = require('../middlewares/auth/resetPassMW');
 const logoutMW = require('../middlewares/auth/logoutMW');
-const mainRedirectMW = require('../middlewares/mainRedirectMW');
+const redirectMW = require('../middlewares/redirectMW');
+const registerMW = require('../middlewares/auth/registerMW');
+
+const userModel = require('../models/user');
 
 module.exports = function (app) {
-    const objRepo = {};
+    const objRepo = {
+        userModel: userModel,
+    };
 
     // Index oldal
     app.get('/',
-        getProfilesMW(),
-        renderMW(objRepo, 'index'),
-        //res.render('index', {users: users});
+        getProfilesMW(objRepo),
+        renderMW(objRepo, 'index')
     );
 
     // Calendar oldal
@@ -66,14 +70,15 @@ module.exports = function (app) {
 
     // Register oldal betoltese, ha authentikalva van akkor fooldal redirect
     app.get('/register',
-        authMW(),
+        authMW(objRepo),
         renderMW(objRepo,'register')
     );
 
     // Register oldalon POST, tehat regisztral es fooldalra redirect
-    app.post('/register', function (req,res) {
-        res.redirect('/');
-    });
+    app.post('/register',
+        registerMW(objRepo),
+        renderMW(objRepo,'register')
+    );
 
     // Login, ha be van lepve akkor fooldal redirect
     app.get('/login',
@@ -95,7 +100,7 @@ module.exports = function (app) {
 
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
-        getProfileMW(),
+        getProfileMW(objRepo),
         renderMW(objRepo,'profile'),
     );
 
@@ -108,6 +113,6 @@ module.exports = function (app) {
     // Logout
     app.get('/logout',
         logoutMW(),
-        mainRedirectMW(),
+        redirectMW(''),
     );
 }

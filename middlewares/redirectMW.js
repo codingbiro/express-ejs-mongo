@@ -1,7 +1,7 @@
 //Betolti az adott profil adatait a db-bol, kilistazza az adatait
 
-module.exports = function (objectrepository) {
+module.exports = function (target) {
     return function (req, res) {
-        res.redirect('/');
+        res.redirect(`/${target}`);
     };
 };
