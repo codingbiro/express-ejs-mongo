@@ -10,6 +10,7 @@ const User = db.model('User', {
     price: Number,
     city: String,
     role: String,
+    subjects: [String],
 });
 
 module.exports = User;

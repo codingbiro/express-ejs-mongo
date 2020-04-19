@@ -4,13 +4,13 @@
       <%- include('../components/subheader', {index: "active", headline: "Welcome!"}); %>
       <form class="uk-grid-small" uk-grid style="margin-top: 8%;">
         <div class="uk-width-1-1">
-          <input class="uk-input" type="text" placeholder="Your description">
+          <input class="uk-input" type="text" placeholder="<%= user.desc %>">
         </div>
         <div class="uk-width-1-2@s">
-          <input class="uk-input" type="text" placeholder="Your name">
+          <input class="uk-input" type="text" placeholder="<%= user.name %>">
         </div>
         <div class="uk-width-1-4@s">
-          <input class="uk-input" type="text" placeholder="Price/lesson">
+          <input class="uk-input" type="text" placeholder="<%= user.price %>">
         </div>
         <div class="uk-width-1-4@s">
           <input class="uk-input" type="text" placeholder="Lesson duration">

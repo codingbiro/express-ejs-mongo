@@ -13,12 +13,15 @@ const resetPassMW = require('../middlewares/auth/resetPassMW');
 const logoutMW = require('../middlewares/auth/logoutMW');
 const redirectMW = require('../middlewares/redirectMW');
 const registerMW = require('../middlewares/auth/registerMW');
+const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalendarMW');
 
 const userModel = require('../models/user');
+const lessonModel = require('../models/lesson');
 
 module.exports = function (app) {
     const objRepo = {
         userModel: userModel,
+        lessonModel: lessonModel,
     };
 
     // Index oldal
@@ -36,35 +39,43 @@ module.exports = function (app) {
     // Dashboard felhasznaloi adatok megtekintese
     app.get('/dashboard',
         authMW(),
-        getProfileDataMW(),
+        getProfileDataMW(objRepo),
         renderMW(objRepo,'dashboard/index')
     );
 
     // Dashboard felhasznaloi adatok modositasa
     app.post('/dashboard', function (req,res) {
-        authMW();
-        saveProfileDataMW();
+        authMW(objRepo);
+        saveProfileDataMW(objRepo);
         res.redirect('/dashboard');
     });
 
     // Dashboard Calendar
     app.get('/dashboard/calendar',
-        authMW(),
-        getProfileCalendarMW(),
+        authMW(objRepo),
+        getProfileCalendarMW(objRepo),
         renderMW(objRepo,'dashboard/calendar')
     );
 
     // Dashboard Calendar
-    app.post('/dashboard/calendar', function (req,res) {
-        authMW();
-        saveProfileCalendarMW();
-        res.redirect('/dashboard/calendar');
-    });
+    app.post('/dashboard/calendar',
+        authMW(objRepo),
+        saveProfileCalendarMW(objRepo),
+        getProfileCalendarMW(objRepo),
+        renderMW(objRepo,'dashboard/calendar')
+    );
+
+    app.get('/dashboard/calendar/:id',
+        authMW(objRepo),
+        deleteProfileCalendarMW(objRepo),
+        getProfileCalendarMW(objRepo),
+        renderMW(objRepo,'dashboard/calendar')
+    );
 
     // Dashboard Applications
     app.get('/dashboard/applications',
-        authMW(),
-        getProfileApplicationsMW(),
+        authMW(objRepo),
+        getProfileApplicationsMW(objRepo),
         renderMW(objRepo,'dashboard/applications')
     );
 
