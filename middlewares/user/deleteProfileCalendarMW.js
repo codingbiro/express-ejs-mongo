@@ -6,7 +6,7 @@ module.exports = function (objectrepository) {
         if(typeof req.params.id !== undefined) theid = req.params.id;
         lessonModel.find({
             _id: theid
-        }).remove(function (err) {
+        }).deleteOne(function (err) {
             if (err) {
                 return next(err);
             }
