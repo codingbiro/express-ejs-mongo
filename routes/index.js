@@ -14,6 +14,7 @@ const logoutMW = require('../middlewares/auth/logoutMW');
 const redirectMW = require('../middlewares/redirectMW');
 const registerMW = require('../middlewares/auth/registerMW');
 const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalendarMW');
+const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplicationMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -32,7 +33,8 @@ module.exports = function (app) {
 
     // Calendar oldal
     app.get('/calendar', 
-        getDatesMW(),
+        getProfilesMW(objRepo),
+        getDatesMW(objRepo),
         renderMW(objRepo,'calendar')
     );
 
@@ -116,10 +118,11 @@ module.exports = function (app) {
     );
 
     // Profile oldalon POST, jelentkezni lehet orara
-    app.post('/profile/:id', function (req,res) {
-        authMW();
-        res.redirect('/profile/:id');
-    });
+    app.post('/profile/:id', 
+        authMW(),
+        sendProfileApplicationMW(objRepo),
+        redirectMW('profile/:id'),
+    );
 
     // Logout
     app.get('/logout',
