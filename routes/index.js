@@ -95,6 +95,7 @@ module.exports = function (app) {
 
     // Register oldalon POST - regisztracio
     app.post('/register',
+        registerMW(objRepo),
         redirectMW('login')
     );
 
