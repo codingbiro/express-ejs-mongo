@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // Using EJS templating
 app.set('view engine', 'ejs');
+
+// Using Express Session
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true}))
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))

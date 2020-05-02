@@ -15,6 +15,7 @@ const redirectMW = require('../middlewares/redirectMW');
 const registerMW = require('../middlewares/auth/registerMW');
 const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalendarMW');
 const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplicationMW');
+const redirectLoggedInMW = require('../middlewares/auth/redirectLoggedInMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -27,12 +28,14 @@ module.exports = function (app) {
 
     // Index oldal
     app.get('/',
+        getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         renderMW(objRepo, 'index')
     );
 
     // Calendar oldal
     app.get('/calendar', 
+        getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         getDatesMW(objRepo),
         renderMW(objRepo,'calendar')
@@ -55,6 +58,7 @@ module.exports = function (app) {
     // Dashboard Calendar
     app.get('/dashboard/calendar',
         authMW(objRepo),
+        getProfileDataMW(objRepo),
         getProfileCalendarMW(objRepo),
         renderMW(objRepo,'dashboard/calendar')
     );
@@ -77,6 +81,7 @@ module.exports = function (app) {
     // Dashboard Applications
     app.get('/dashboard/applications',
         authMW(objRepo),
+        getProfileDataMW(objRepo),
         getProfileApplicationsMW(objRepo),
         renderMW(objRepo,'dashboard/applications')
     );
@@ -84,6 +89,7 @@ module.exports = function (app) {
     // Register oldal betoltese, ha authentikalva van akkor fooldal redirect
     app.get('/register',
         authMW(objRepo),
+        getProfileDataMW(objRepo),
         renderMW(objRepo,'register')
     );
 
@@ -93,17 +99,18 @@ module.exports = function (app) {
         renderMW(objRepo,'register')
     );
 
-    // Login, ha be van lepve akkor fooldal redirect
+    // Login
     app.get('/login',
-        authMW(),
+        getProfileDataMW(objRepo),
+        redirectLoggedInMW(),
         renderMW(objRepo,'login')
     );
 
     // Login oldalon POST, tehat belep es fooldalra redirect
-    app.post('/login', function (req,res) {
-        checkPassMW();
-        res.redirect('/');
-    });
+    app.post('/login',
+        checkPassMW(),
+        redirectMW('')
+    );
 
     // Login oldalrol elerheto iforgot POST, tehat elkuldi a jelszo resetet emailre es fooldal redirect
     app.post('/login/iforgot', function (req,res) {
@@ -113,6 +120,7 @@ module.exports = function (app) {
 
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
+        getProfileDataMW(objRepo),
         getProfileMW(objRepo),
         renderMW(objRepo,'profile'),
     );
@@ -126,7 +134,6 @@ module.exports = function (app) {
 
     // Logout
     app.get('/logout',
-        logoutMW(),
-        redirectMW(''),
+        logoutMW()
     );
 }

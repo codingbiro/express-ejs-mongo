@@ -1,20 +1,20 @@
 <%- include('components/header', {title: "Login"}); %>
 <%- include('components/nav', {login: "active"}); %>
     <div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
-      <form style="text-align: center;">
+      <form style="text-align: center;" method="POST">
         <div class="uk-margin">
           <div class="uk-inline">
             <span class="uk-form-icon" uk-icon="icon: user"></span>
-            <input class="uk-input" type="text" placeholder="E-mail">
+            <input class="uk-input" type="text" name="email" placeholder="E-mail">
           </div>
         </div>
         <div class="uk-margin">
           <div class="uk-inline">
             <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-            <input class="uk-input" type="text" placeholder="Password">
+            <input class="uk-input" type="text" name="password" placeholder="Password">
           </div>
         </div>
-        <a class="uk-button uk-button-default" href="/dashboard/">Log in</a>
+        <input type="submit" class="uk-button uk-button-default" value="Log in">
       </form>
       <dl class="uk-description-list uk-description-list-divider" style="padding: 40px 0px; text-align: center;">
         <dt>LOST PASSWORD</dt>

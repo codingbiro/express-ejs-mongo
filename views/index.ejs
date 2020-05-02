@@ -1,5 +1,5 @@
 <%- include('components/header', {title: "Home"}); %>
-<%- include('components/nav', {home: "active"}); %>
+<%- include('components/nav', {home: "active", isLoggedIn: isLoggedIn}); %>
 <div class="uk-container uk-container-xsmall" style="padding-top: 40px;">
     <% users.forEach(function(user){ %>
       <%- include('utils/card', {user: user}); %>
