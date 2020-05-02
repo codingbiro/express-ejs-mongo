@@ -6,6 +6,7 @@ module.exports = function (objectrepository) {
     return function (req, res, next) {
         if(req.body.password !== req.body.password2) {
             res.locals.passwordsDoNotMatch = true;
+            req.session.pwds = 'loop';
             return next();
         }
         if(req.body.role === 'student' || req.body.role === 'teacher') {
@@ -14,7 +15,7 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
                 res.locals.registered = true;
-                return next();
+                res.redirect('/login');
             });
         } 
     };

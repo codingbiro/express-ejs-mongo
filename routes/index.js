@@ -96,7 +96,7 @@ module.exports = function (app) {
     // Register oldalon POST - regisztracio
     app.post('/register',
         registerMW(objRepo),
-        redirectMW('login')
+        redirectMW('register')
     );
 
     // Login
@@ -109,7 +109,7 @@ module.exports = function (app) {
     // Login oldalon POST, tehat belep es fooldalra redirect
     app.post('/login',
         checkPassMW(objRepo),
-        redirectMW('')
+        redirectMW('login')
     );
 
     // Login oldalrol elerheto iforgot POST, tehat elkuldi a jelszo resetet emailre es fooldal redirect
