@@ -1,4 +1,4 @@
-//Betolti az adott profil adatait a db-bol, kilistazza az adatait
+// Betolti a loggedin profil adatait a db-bol
 
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;

@@ -20,7 +20,7 @@ module.exports = function (objectrepository) {
             }
         }
 
-        lessonModel.create({start: thedate, duration: req.body.duration, subject: req.body.subject, _user: "5e9b588385018c3e38ff2c1f"}, (err) => {
+        lessonModel.create({start: thedate, duration: req.body.duration, subject: req.body.subject, _user: req.session.userId}, (err) => {
             if (err) {
                 return next(err);
             }

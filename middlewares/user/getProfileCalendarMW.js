@@ -1,9 +1,9 @@
-//Betolti az adott profil naptarat a db-bol, kilistazza az adatait
+// Betolti a loggedin profil naptarat a db-bol
 
 module.exports = function(objectrepository) {
     const lessonModel = objectrepository.lessonModel;
     return function(req, res, next) {
-        lessonModel.find({}, null, {sort: 'start'}, (err, lessons) => {
+        lessonModel.find({_user: req.session.userId}, null, {sort: 'start'}, (err, lessons) => {
             if (err) {
                 return next(err);
             }

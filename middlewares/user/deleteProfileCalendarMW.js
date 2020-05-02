@@ -1,17 +1,34 @@
+// ora torlese
+
 module.exports = function (objectrepository) {
     const lessonModel = objectrepository.lessonModel;
 
-    return function(req, res, next) {
+    return async function(req, res, next) {
         let theid = 0;
         if(typeof req.params.id !== undefined) theid = req.params.id;
-        lessonModel.find({
-            _id: theid
-        }).deleteOne(function (err) {
+        const userId = req.session.userId;
+        let theLesson;
+        await lessonModel.findOne({_id: theid}, (err, alesson) => {
             if (err) {
-                return next(err);
+                console.log(err);
             }
-            res.locals.deleted = true;
-            next();
+            theLesson = alesson;
         });
+
+        let theUser;
+        if(theLesson) theUser = String(theLesson._user);
+        else next();
+        if(theUser !== userId) next();
+        else {
+            lessonModel.find({
+                _id: theid
+            }).deleteOne(function (err) {
+                if (err) {
+                    next(err);
+                }
+                res.locals.deleted = true;
+                next();
+            });
+        }
     };
 };

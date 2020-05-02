@@ -50,6 +50,7 @@ module.exports = function (app) {
 
     // Dashboard felhasznaloi adatok modositasa
     app.post('/dashboard', function (req,res) {
+        // TODO
         authMW(objRepo);
         saveProfileDataMW(objRepo);
         res.redirect('/dashboard');
@@ -67,15 +68,14 @@ module.exports = function (app) {
     app.post('/dashboard/calendar',
         authMW(objRepo),
         saveProfileCalendarMW(objRepo),
-        getProfileCalendarMW(objRepo),
-        renderMW(objRepo,'dashboard/calendar')
+        redirectMW('dashboard/calendar')
     );
 
+    // Delete a lesson
     app.get('/dashboard/calendar/:id',
         authMW(objRepo),
         deleteProfileCalendarMW(objRepo),
-        getProfileCalendarMW(objRepo),
-        renderMW(objRepo,'dashboard/calendar')
+        redirectMW('dashboard/calendar')
     );
 
     // Dashboard Applications
@@ -88,15 +88,14 @@ module.exports = function (app) {
 
     // Register oldal betoltese, ha authentikalva van akkor fooldal redirect
     app.get('/register',
-        authMW(objRepo),
+        redirectLoggedInMW(),
         getProfileDataMW(objRepo),
         renderMW(objRepo,'register')
     );
 
-    // Register oldalon POST, tehat regisztral es fooldalra redirect
+    // Register oldalon POST - regisztracio
     app.post('/register',
-        registerMW(objRepo),
-        renderMW(objRepo,'register')
+        redirectMW('login')
     );
 
     // Login
@@ -108,12 +107,13 @@ module.exports = function (app) {
 
     // Login oldalon POST, tehat belep es fooldalra redirect
     app.post('/login',
-        checkPassMW(),
+        checkPassMW(objRepo),
         redirectMW('')
     );
 
     // Login oldalrol elerheto iforgot POST, tehat elkuldi a jelszo resetet emailre es fooldal redirect
     app.post('/login/iforgot', function (req,res) {
+        // TODO
         resetPassMW();
         res.redirect('/');
     });
