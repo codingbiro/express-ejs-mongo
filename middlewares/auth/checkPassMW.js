@@ -18,7 +18,7 @@ module.exports = function (objectrepository) {
         });
         
         if(theUser) {
-            if (req.body.password === 'admin') {
+            if (req.body.password === theUser.password) {
                 req.session.isLoggedIn = true;
                 req.session.userMail = req.body.email;
                 req.session.userId = theUser._id;
