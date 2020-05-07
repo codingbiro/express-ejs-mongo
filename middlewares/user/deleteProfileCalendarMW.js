@@ -3,12 +3,12 @@
 module.exports = function (objectrepository) {
     const lessonModel = objectrepository.lessonModel;
 
-    return async function(req, res, next) {
+    return async function (req, res, next) {
         let theid = 0;
-        if(typeof req.params.id !== undefined) theid = req.params.id;
+        if (typeof req.params.id !== undefined) theid = req.params.id;
         const userId = req.session.userId;
         let theLesson;
-        await lessonModel.findOne({_id: theid}, (err, alesson) => {
+        await lessonModel.findOne({ _id: theid }, (err, alesson) => {
             if (err) {
                 console.log(err);
             }
@@ -16,9 +16,9 @@ module.exports = function (objectrepository) {
         });
 
         let theUser;
-        if(theLesson) theUser = String(theLesson._user);
+        if (theLesson) theUser = String(theLesson._user);
         else next();
-        if(theUser !== userId) next();
+        if (theUser !== userId) next();
         else {
             lessonModel.find({
                 _id: theid

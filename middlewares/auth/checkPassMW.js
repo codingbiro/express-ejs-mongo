@@ -10,19 +10,19 @@ module.exports = function (objectrepository) {
 
         let theUser = null;
 
-        await userModel.findOne({email: req.body.email}, (err, user) => {
+        await userModel.findOne({ email: req.body.email }, (err, user) => {
             if (err) {
                 console.log(err);
             }
             theUser = user;
         });
-        
-        if(theUser) {
+
+        if (theUser) {
             if (req.body.password === theUser.password) {
                 req.session.isLoggedIn = true;
                 req.session.userMail = req.body.email;
                 req.session.userId = theUser._id;
-                return req.session.save(err => {console.log("error: "+ err); res.redirect('/dashboard');});
+                return req.session.save(err => { console.log("error: " + err); res.redirect('/dashboard'); });
             }
         }
         res.locals.error = 'Invalid credentials!';

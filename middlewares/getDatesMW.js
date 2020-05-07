@@ -3,7 +3,7 @@ const utils = require('../misc/utils');
 
 module.exports = function (objectrepository) {
     const lessonModel = objectrepository.lessonModel;
-    return function(req, res, next) {
+    return function (req, res, next) {
         lessonModel.find({}, (err, lessons) => {
             if (err) {
                 return next(err);
