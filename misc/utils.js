@@ -77,10 +77,7 @@ function isExpired(month, day) {
 
     if (month <= date.getMonth()) {
         if (month == date.getMonth()) {
-            if (day < date.getDate()) {
-                return true;
-            }
-            else return false;
+            return (day < date.getDate()) ? true : false;
         }
         else return true;
     }

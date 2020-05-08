@@ -7,7 +7,7 @@ module.exports = function (objectrepository) {
     return async function (req, res, next) {
         let theid = 0;
 
-        if (typeof req.params.id !== undefined) theid = String(req.params.id);
+        if (req.params.id !== undefined) theid = String(req.params.id);
         else {
             req.session.sessionFlash = {
                 type: 'danger',
