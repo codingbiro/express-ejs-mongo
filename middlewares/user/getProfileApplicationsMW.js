@@ -18,6 +18,9 @@ module.exports = function (objectrepository) {
             theApps = user.apps;
         });
 
+        // Sorting the apps by their updated field
+        theApps.sort((a,b) => (a.updated < b.updated) ? 1 : -1);
+
         let theMsgs = [];
         for (var anApp of theApps) {
             const time = utils.displayET(anApp.updated);
@@ -36,7 +39,6 @@ module.exports = function (objectrepository) {
                     theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : '/avatar-placeholder.gif', time: time });
             });
         }
-
         res.locals.messages = theMsgs;
 
         return next();
