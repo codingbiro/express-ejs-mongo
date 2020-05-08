@@ -1,79 +1,97 @@
 const authMW = require('../middlewares/auth/authMW');
 const checkPassMW = require('../middlewares/auth/checkPassMW');
 const renderMW = require('../middlewares/renderMW');
-const getProfilesMW = require('../middlewares/getProfilesMW');
-const getProfileMW = require('../middlewares/getProfileMW');
-const saveProfileDataMW = require('../middlewares/saveProfileDataMW');
-const getProfileDataMW = require('../middlewares/getProfileDataMW');
-const getProfileCalendarMW = require('../middlewares/getProfileCalendarMW');
+const getProfilesMW = require('../middlewares/user/getProfilesMW');
+const getProfileMW = require('../middlewares/user/getProfileMW');
+const saveProfileDataMW = require('../middlewares/user/saveProfileDataMW');
+const getProfileDataMW = require('../middlewares/user/getProfileDataMW');
+const getProfileCalendarMW = require('../middlewares/user/getProfileCalendarMW');
 const getDatesMW = require('../middlewares/getDatesMW');
-const saveProfileCalendarMW = require('../middlewares/saveProfileCalendarMW');
-const getProfileApplicationsMW = require('../middlewares/getProfileApplicationsMW');
+const saveProfileCalendarMW = require('../middlewares/user/saveProfileCalendarMW');
+const getProfileApplicationsMW = require('../middlewares/user/getProfileApplicationsMW');
 const resetPassMW = require('../middlewares/auth/resetPassMW');
 const logoutMW = require('../middlewares/auth/logoutMW');
-const mainRedirectMW = require('../middlewares/mainRedirectMW');
+const redirectMW = require('../middlewares/redirectMW');
+const registerMW = require('../middlewares/auth/registerMW');
+const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalendarMW');
+const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplicationMW');
+
+const userModel = require('../models/user');
+const lessonModel = require('../models/lesson');
 
 module.exports = function (app) {
-    const objRepo = {};
+    const objRepo = {
+        userModel: userModel,
+        lessonModel: lessonModel,
+    };
 
     // Index oldal
     app.get('/',
-        getProfilesMW(),
-        renderMW(objRepo, 'index'),
-        //res.render('index', {users: users});
+        getProfilesMW(objRepo),
+        renderMW(objRepo, 'index')
     );
 
     // Calendar oldal
     app.get('/calendar', 
-        getDatesMW(),
+        getProfilesMW(objRepo),
+        getDatesMW(objRepo),
         renderMW(objRepo,'calendar')
     );
 
     // Dashboard felhasznaloi adatok megtekintese
     app.get('/dashboard',
         authMW(),
-        getProfileDataMW(),
+        getProfileDataMW(objRepo),
         renderMW(objRepo,'dashboard/index')
     );
 
     // Dashboard felhasznaloi adatok modositasa
     app.post('/dashboard', function (req,res) {
-        authMW();
-        saveProfileDataMW();
+        authMW(objRepo);
+        saveProfileDataMW(objRepo);
         res.redirect('/dashboard');
     });
 
     // Dashboard Calendar
     app.get('/dashboard/calendar',
-        authMW(),
-        getProfileCalendarMW(),
+        authMW(objRepo),
+        getProfileCalendarMW(objRepo),
         renderMW(objRepo,'dashboard/calendar')
     );
 
     // Dashboard Calendar
-    app.post('/dashboard/calendar', function (req,res) {
-        authMW();
-        saveProfileCalendarMW();
-        res.redirect('/dashboard/calendar');
-    });
+    app.post('/dashboard/calendar',
+        authMW(objRepo),
+        saveProfileCalendarMW(objRepo),
+        getProfileCalendarMW(objRepo),
+        renderMW(objRepo,'dashboard/calendar')
+    );
+
+    app.get('/dashboard/calendar/:id',
+        authMW(objRepo),
+        deleteProfileCalendarMW(objRepo),
+        getProfileCalendarMW(objRepo),
+        renderMW(objRepo,'dashboard/calendar')
+    );
 
     // Dashboard Applications
     app.get('/dashboard/applications',
-        authMW(),
-        getProfileApplicationsMW(),
+        authMW(objRepo),
+        getProfileApplicationsMW(objRepo),
         renderMW(objRepo,'dashboard/applications')
     );
 
     // Register oldal betoltese, ha authentikalva van akkor fooldal redirect
     app.get('/register',
-        authMW(),
+        authMW(objRepo),
         renderMW(objRepo,'register')
     );
 
     // Register oldalon POST, tehat regisztral es fooldalra redirect
-    app.post('/register', function (req,res) {
-        res.redirect('/');
-    });
+    app.post('/register',
+        registerMW(objRepo),
+        renderMW(objRepo,'register')
+    );
 
     // Login, ha be van lepve akkor fooldal redirect
     app.get('/login',
@@ -95,19 +113,20 @@ module.exports = function (app) {
 
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
-        getProfileMW(),
+        getProfileMW(objRepo),
         renderMW(objRepo,'profile'),
     );
 
     // Profile oldalon POST, jelentkezni lehet orara
-    app.post('/profile/:id', function (req,res) {
-        authMW();
-        res.redirect('/profile/:id');
-    });
+    app.post('/profile/:id', 
+        authMW(),
+        sendProfileApplicationMW(objRepo),
+        redirectMW('profile/:id'),
+    );
 
     // Logout
     app.get('/logout',
         logoutMW(),
-        mainRedirectMW(),
+        redirectMW(''),
     );
 }
