@@ -8,6 +8,6 @@ module.exports = function (objectrepository) {
                 return res.redirect('/dashboard');
         }
 
-        next();
+        return next();
     };
 };

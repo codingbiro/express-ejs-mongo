@@ -34,18 +34,18 @@ module.exports = function (app) {
     );
 
     // Calendar oldal
-    app.get('/calendar', 
+    app.get('/calendar',
         getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         getDatesMW(objRepo),
-        renderMW(objRepo,'calendar')
+        renderMW(objRepo, 'calendar')
     );
 
     // Dashboard felhasznaloi adatok megtekintese
     app.get('/dashboard',
         authMW(),
         getProfileDataMW(objRepo),
-        renderMW(objRepo,'dashboard/index')
+        renderMW(objRepo, 'dashboard/index')
     );
 
     // Dashboard felhasznaloi adatok modositasa
@@ -60,7 +60,7 @@ module.exports = function (app) {
         authMW(objRepo),
         getProfileDataMW(objRepo),
         getProfileCalendarMW(objRepo),
-        renderMW(objRepo,'dashboard/calendar')
+        renderMW(objRepo, 'dashboard/calendar')
     );
 
     // Dashboard Calendar
@@ -82,14 +82,14 @@ module.exports = function (app) {
         authMW(objRepo),
         getProfileDataMW(objRepo),
         getProfileApplicationsMW(objRepo),
-        renderMW(objRepo,'dashboard/applications')
+        renderMW(objRepo, 'dashboard/applications')
     );
 
     // Register oldal betoltese, ha authentikalva van akkor fooldal redirect
     app.get('/register',
         redirectLoggedInMW(),
         getProfileDataMW(objRepo),
-        renderMW(objRepo,'register')
+        renderMW(objRepo, 'register')
     );
 
     // Register oldalon POST - regisztracio
@@ -102,7 +102,7 @@ module.exports = function (app) {
     app.get('/login',
         getProfileDataMW(objRepo),
         redirectLoggedInMW(),
-        renderMW(objRepo,'login')
+        renderMW(objRepo, 'login')
     );
 
     // Login oldalon POST, tehat belep es fooldalra redirect
@@ -121,14 +121,13 @@ module.exports = function (app) {
     app.get('/profile/:id',
         getProfileDataMW(objRepo),
         getProfileMW(objRepo),
-        renderMW(objRepo,'profile'),
+        renderMW(objRepo, 'profile'),
     );
 
     // Jelentkezes egy tanarhoz
-    app.get('/profile/:id/apply', 
+    app.get('/profile/:id/apply',
         authMW(),
-        sendProfileApplicationMW(objRepo),
-        redirectMW('login'),
+        sendProfileApplicationMW(objRepo)
     );
 
     // Logout

@@ -8,8 +8,10 @@ module.exports = function (objectrepository) {
             if (err) {
                 return next(err);
             }
+
             res.locals.lessons = lessons;
             res.locals.utils = utils;
+            
             return next();
         });
     };

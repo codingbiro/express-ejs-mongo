@@ -1,55 +1,49 @@
 <div class="uk-container">
-    <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-      <div class="uk-navbar-left">
-        <ul class="uk-navbar-nav">
-          <li <% if (typeof home !== 'undefined') { %> 
-              class="uk-active"
-          <% } %>><a href="/">Home</a></li>
-          <li<% if (typeof calendar !== 'undefined') { %> 
-            class="uk-active"
-        <% } %>><a href="/calendar">Calendar</a></li>
+  <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+    <div class="uk-navbar-left">
+      <ul class="uk-navbar-nav">
+        <li <% if (typeof home !== 'undefined') { %> class="uk-active" <% } %>><a href="/">Home</a></li>
+        <li<% if (typeof calendar !== 'undefined') { %> class="uk-active" <% } %>><a href="/calendar">Calendar</a></li>
       </ul>
-      </div>
-      <div class="uk-navbar-center">
-        <a href="/" class="uk-navbar-item uk-logo">
-          <svg width="250" height="100" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <title>background</title>
-              <rect fill="#fff" id="canvas_background" height="102" width="252" y="-1" x="-1"/>
-              <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
-                <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
-              </g>
+    </div>
+    <div class="uk-navbar-center">
+      <a href="/" class="uk-navbar-item uk-logo">
+        <svg width="250" height="100" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <title>background</title>
+            <rect fill="#fff" id="canvas_background" height="102" width="252" y="-1" x="-1" />
+            <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+              <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%" />
             </g>
-            <g>
-              <title>LOGO</title>
-              <text font-style="normal" font-weight="normal" stroke="#000" transform="matrix(3.1473100185394287,0,0,2.8504631461887726,-417.6517986059189,-294.66597193004617) " xml:space="preserve" text-anchor="start" font-family="'League Gothic', sans-serif" font-size="24" id="svg_2" y="129.178326" x="133.177792" stroke-width="0" fill="#CE7975">Matech</text>
-            </g>
-          </svg>
-        </a>
-      </div>
-      <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-          
-          <% if (isLoggedIn === true) { %> 
+          </g>
+          <g>
+            <title>LOGO</title>
+            <text font-style="normal" font-weight="normal" stroke="#000"
+              transform="matrix(3.1473100185394287,0,0,2.8504631461887726,-417.6517986059189,-294.66597193004617) "
+              xml:space="preserve" text-anchor="start" font-family="'League Gothic', sans-serif" font-size="24"
+              id="svg_2" y="129.178326" x="133.177792" stroke-width="0" fill="#CE7975">Matech</text>
+          </g>
+        </svg>
+      </a>
+    </div>
+    <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
 
-            <li <% if (typeof dashboard !== 'undefined') { %> 
-              class="uk-active"
-           <% } %>><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/logout">Logout</a></li>
-          <% } %>
+        <% if (isLoggedIn === true) { %>
 
-          <% if (isLoggedIn === false) { %> 
-            
-                <li <% if (typeof login !== 'undefined') { %> 
-                  class="uk-active"
-               <% } %>><a href="/login">Login</a></li>
-          
-               <li <% if (typeof register !== 'undefined') { %> 
-               class="uk-active"
-              <% } %>><a href="/register">Register</a></li>
-         
-           <% } %>
-        </ul>
-      </div>
-    </nav>
-  </div>
+        <li <% if (typeof dashboard !== 'undefined') { %> class="uk-active" <% } %>><a href="/dashboard">Dashboard</a>
+        </li>
+        <li><a href="/logout">Logout</a></li>
+        <% } %>
+
+        <% if (isLoggedIn === false) { %>
+
+        <li <% if (typeof login !== 'undefined') { %> class="uk-active" <% } %>><a href="/login">Login</a></li>
+
+        <li <% if (typeof register !== 'undefined') { %> class="uk-active" <% } %>><a href="/register">Register</a></li>
+
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+</div>
