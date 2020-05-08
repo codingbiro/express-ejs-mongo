@@ -5,7 +5,7 @@ module.exports = function (objectrepository) {
 
     return async function (req, res, next) {
         let theid = 0;
-        if (typeof req.params.id !== undefined) theid = req.params.id;
+        if (req.params.id !== undefined) theid = req.params.id;
         const userId = req.session.userId;
         let theLesson;
         await lessonModel.findOne({ _id: theid }, (err, alesson) => {

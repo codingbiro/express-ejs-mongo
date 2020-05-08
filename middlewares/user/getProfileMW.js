@@ -5,7 +5,7 @@ module.exports = function (objectrepository) {
 
     return function (req, res, next) {
         let theid = 0;
-        if (typeof req.params.id !== undefined) theid = req.params.id;
+        if (req.params.id !== undefined) theid = req.params.id;
         userModel.findOne({ _id: theid }, (err, user) => {
             if (err) {
                 req.session.sessionFlash = {

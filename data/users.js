@@ -13,8 +13,8 @@ const text3 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do e
 array = text.split(' ');
 array1 = text2.split(' ');
 array2 = text.split('.');
-array3 = text3.split(' ');
-array4 = text3.split(',');
+let array3 = text3.split(' ');
+let array4 = text3.split(',');
 
 for(var i = 0; i < 5; i++) {
     let newUser = new um();
@@ -25,7 +25,6 @@ for(var i = 0; i < 5; i++) {
     newUser.price = 10+Math.floor(Math.random() * 10);
     newUser.desc = array2[i];
     newUser.role = 'teacher';
-    let koko;
     newUser.save(err=>console.log(err));        
 }
 
