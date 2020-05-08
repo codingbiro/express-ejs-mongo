@@ -15,6 +15,7 @@ const redirectMW = require('../middlewares/redirectMW');
 const registerMW = require('../middlewares/auth/registerMW');
 const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalendarMW');
 const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplicationMW');
+const redirectLoggedInMW = require('../middlewares/auth/redirectLoggedInMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -27,12 +28,14 @@ module.exports = function (app) {
 
     // Index oldal
     app.get('/',
+        getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         renderMW(objRepo, 'index')
     );
 
     // Calendar oldal
     app.get('/calendar', 
+        getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         getDatesMW(objRepo),
         renderMW(objRepo,'calendar')
@@ -46,15 +49,16 @@ module.exports = function (app) {
     );
 
     // Dashboard felhasznaloi adatok modositasa
-    app.post('/dashboard', function (req,res) {
-        authMW(objRepo);
-        saveProfileDataMW(objRepo);
-        res.redirect('/dashboard');
-    });
+    app.post('/dashboard',
+        authMW(objRepo),
+        saveProfileDataMW(objRepo),
+        redirectMW('dashboard'),
+    );
 
     // Dashboard Calendar
     app.get('/dashboard/calendar',
         authMW(objRepo),
+        getProfileDataMW(objRepo),
         getProfileCalendarMW(objRepo),
         renderMW(objRepo,'dashboard/calendar')
     );
@@ -63,70 +67,72 @@ module.exports = function (app) {
     app.post('/dashboard/calendar',
         authMW(objRepo),
         saveProfileCalendarMW(objRepo),
-        getProfileCalendarMW(objRepo),
-        renderMW(objRepo,'dashboard/calendar')
+        redirectMW('dashboard/calendar')
     );
 
+    // Delete a lesson
     app.get('/dashboard/calendar/:id',
         authMW(objRepo),
         deleteProfileCalendarMW(objRepo),
-        getProfileCalendarMW(objRepo),
-        renderMW(objRepo,'dashboard/calendar')
+        redirectMW('dashboard/calendar')
     );
 
     // Dashboard Applications
     app.get('/dashboard/applications',
         authMW(objRepo),
+        getProfileDataMW(objRepo),
         getProfileApplicationsMW(objRepo),
         renderMW(objRepo,'dashboard/applications')
     );
 
     // Register oldal betoltese, ha authentikalva van akkor fooldal redirect
     app.get('/register',
-        authMW(objRepo),
+        redirectLoggedInMW(),
+        getProfileDataMW(objRepo),
         renderMW(objRepo,'register')
     );
 
-    // Register oldalon POST, tehat regisztral es fooldalra redirect
+    // Register oldalon POST - regisztracio
     app.post('/register',
         registerMW(objRepo),
-        renderMW(objRepo,'register')
+        redirectMW('register')
     );
 
-    // Login, ha be van lepve akkor fooldal redirect
+    // Login
     app.get('/login',
-        authMW(),
+        getProfileDataMW(objRepo),
+        redirectLoggedInMW(),
         renderMW(objRepo,'login')
     );
 
     // Login oldalon POST, tehat belep es fooldalra redirect
-    app.post('/login', function (req,res) {
-        checkPassMW();
-        res.redirect('/');
-    });
+    app.post('/login',
+        checkPassMW(objRepo),
+        redirectMW('login')
+    );
 
     // Login oldalrol elerheto iforgot POST, tehat elkuldi a jelszo resetet emailre es fooldal redirect
+    /* Future feature
     app.post('/login/iforgot', function (req,res) {
         resetPassMW();
-        res.redirect('/');
-    });
+    });*/
 
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
+        getProfileDataMW(objRepo),
         getProfileMW(objRepo),
         renderMW(objRepo,'profile'),
     );
 
-    // Profile oldalon POST, jelentkezni lehet orara
-    app.post('/profile/:id', 
+    // Jelentkezes egy tanarhoz
+    app.get('/profile/:id/apply', 
         authMW(),
         sendProfileApplicationMW(objRepo),
-        redirectMW('profile/:id'),
+        redirectMW('login'),
     );
 
     // Logout
     app.get('/logout',
-        logoutMW(),
-        redirectMW(''),
+        logoutMW()
     );
 }

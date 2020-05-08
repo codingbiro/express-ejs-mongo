@@ -29,16 +29,26 @@
       </div>
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-          <% if (typeof dashboard !== 'undefined') { %> 
-            <li class="uk-active"><a href="/dashboard">Dashboard</a></li><li><a href="/logout">Logout</a></li>
-          <% } %>
-          <% if (typeof dashboard == 'undefined') { %> 
-            <li <% if (typeof login !== 'undefined') { %> 
+          
+          <% if (isLoggedIn === true) { %> 
+
+            <li <% if (typeof dashboard !== 'undefined') { %> 
               class="uk-active"
-          <% } %>><a href="/login">Login</a></li><li <% if (typeof register !== 'undefined') { %> 
-            class="uk-active"
-        <% } %>><a href="/register">Register</a></li>
+           <% } %>><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/logout">Logout</a></li>
           <% } %>
+
+          <% if (isLoggedIn === false) { %> 
+            
+                <li <% if (typeof login !== 'undefined') { %> 
+                  class="uk-active"
+               <% } %>><a href="/login">Login</a></li>
+          
+               <li <% if (typeof register !== 'undefined') { %> 
+               class="uk-active"
+              <% } %>><a href="/register">Register</a></li>
+         
+           <% } %>
         </ul>
       </div>
     </nav>
