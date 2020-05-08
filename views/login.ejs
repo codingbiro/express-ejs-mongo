@@ -1,25 +1,31 @@
 <%- include('components/header', {title: "Login"}); %>
 <%- include('components/nav', {login: "active"}); %>
-    <div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
-      <form style="text-align: center;" method="POST">
-        <div class="uk-margin">
-          <div class="uk-inline">
-            <span class="uk-form-icon" uk-icon="icon: user"></span>
-            <input class="uk-input" type="email" name="email" placeholder="E-mail">
-          </div>
-        </div>
-        <div class="uk-margin">
-          <div class="uk-inline">
-            <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-            <input class="uk-input" type="password" name="password" placeholder="Password">
-          </div>
-        </div>
-        <input type="submit" class="uk-button uk-button-default" value="Log in">
-      </form>
-      <!--dl class="uk-description-list uk-description-list-divider" style="padding: 40px 0px; text-align: center;">
+<div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
+  <% if ( sessionFlash && sessionFlash.message) { %>
+  <div class="uk-alert-<%= sessionFlash.type %>" uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    <p><%= sessionFlash.message %></p>
+  </div>
+  <% } %>
+  <form style="text-align: center;" method="POST">
+    <div class="uk-margin">
+      <div class="uk-inline">
+        <span class="uk-form-icon" uk-icon="icon: user"></span>
+        <input class="uk-input" type="email" name="email" placeholder="E-mail" required>
+      </div>
+    </div>
+    <div class="uk-margin">
+      <div class="uk-inline">
+        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+        <input class="uk-input" type="password" name="password" placeholder="Password" required>
+      </div>
+    </div>
+    <input type="submit" class="uk-button uk-button-default" value="Log in">
+  </form>
+  <!--dl class="uk-description-list uk-description-list-divider" style="padding: 40px 0px; text-align: center;">
         <dt>LOST PASSWORD</dt>
         <dd>You can request for a password reset. Fill out the e-mail field and click the button below.</dd>
         <button class="uk-button uk-button-default uk-button-small" type="button" onclick="UIkit.notification({message: 'Please check your e-mail for further instructions.', status: 'primary'})">Reset password here</button>
       </dl-->
-    </div>
+</div>
 <%- include ('components/footer') %>

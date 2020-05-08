@@ -1,9 +1,18 @@
 <%- include('../components/header', {title: "Applications"}); %>
 <%- include('../components/nav', {dashboard: "active"}); %>
 <div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
-<%- include('../components/subheader', {applications: "active", headline: "Your inbox"}); %>
-<% messages.forEach(function(msg){ %>
+  <% if ( sessionFlash && sessionFlash.message) { %>
+    <div class="uk-alert-<%= sessionFlash.type %>" uk-alert>
+      <a class="uk-alert-close" uk-close></a>
+      <p><%= sessionFlash.message %></p>
+    </div>
+    <% } %>
+  <%- include('../components/subheader', {applications: "active", headline: "Your inbox"}); %>
+  <% messages.forEach(function(msg){ %>
   <%- include('../utils/message', {message: msg}); %>
-<% }); %>
+  <% }); %>
+  <% if ( messages.length === 0) { %>
+  <h2>Such emptiness.</h2>
+  <% } %>
 </div>
 <%- include('../components/footer') %>

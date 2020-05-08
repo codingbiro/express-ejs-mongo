@@ -3,6 +3,11 @@
 module.exports = function (objectrepository) {
     return function (req, res, next) {
         // TODO
-        next();
+        req.session.sessionFlash = {
+            type: 'success',
+            message: 'We have sent you an e-mail with further instructions.',
+        };
+
+        return next();
     };
 };

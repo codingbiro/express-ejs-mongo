@@ -1,4 +1,5 @@
 //Megnezi jo e a jelszo a belepesnel
+const utils = require('../../misc/utils');
 
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
@@ -12,7 +13,12 @@ module.exports = function (objectrepository) {
 
         await userModel.findOne({ email: req.body.email }, (err, user) => {
             if (err) {
-                console.log(err);
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'DB error.',
+                };
+
+                return next(err);
             }
             theUser = user;
         });
@@ -23,10 +29,33 @@ module.exports = function (objectrepository) {
                 req.session.userMail = theUser.email;
                 req.session.userId = theUser._id;
                 req.session.userRole = theUser.role;
-                return req.session.save(err => { console.log("error: " + err); res.redirect('/dashboard'); });
+
+                return req.session.save(err => {
+                    if (err) {
+                        req.session.sessionFlash = {
+                            type: 'danger',
+                            message: 'DB error.',
+                        };
+
+                        return next(err);
+                    };
+                    res.redirect('/dashboard');
+                });
+            }
+            else {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'Wrong credentials.',
+                };
             }
         }
-        res.locals.error = 'Invalid credentials!';
+        else {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'Wrong credentials.',
+            };
+        }
+
         return next();
     };
 };

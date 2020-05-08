@@ -18,29 +18,73 @@ module.exports = function (objectrepository) {
             if (pass1 === pass2) {
                 pass = String(pass1);
             }
+            else {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'Passwords do not match.',
+                };
+
+                return next();
+            }
+        }
+        else {
+            if (pass1) {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'Passwords do not match.',
+                };
+            }
+            if (pass2) {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'Passwords do not match.',
+                };
+            }
         }
 
         userModel.updateOne({ _id: req.session.userId },
             {
-                $set : {
+                $set: {
                     desc: desc,
                     name: name,
                     price: Number(price),
                     city: city,
                 }
             },
-            (err) => { if (err) { return next(err); } });
-        
+            (err) => {
+                if (err) {
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'DB error.',
+                    };
+
+                    return next(err);
+                }
+            });
+
         if (pass) {
             userModel.updateOne({ _id: req.session.userId },
                 {
-                    $set : {
+                    $set: {
                         password: pass,
                     },
                 },
-                (err) => { if (err) { return next(err); } });
+                (err) => {
+                    if (err) {
+                        req.session.sessionFlash = {
+                            type: 'danger',
+                            message: 'DB error.',
+                        };
+
+                        return next(err);
+                    }
+                });
         }
-        
-        next();
+        req.session.sessionFlash = {
+            type: 'success',
+            message: 'Profile updating has been successful.',
+        };
+
+        return next();
     };
 };

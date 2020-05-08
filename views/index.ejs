@@ -1,8 +1,14 @@
 <%- include('components/header', {title: "Home"}); %>
 <%- include('components/nav', {home: "active", isLoggedIn: isLoggedIn}); %>
 <div class="uk-container uk-container-xsmall" style="padding-top: 40px;">
-    <% users.forEach(function(user){ %>
-      <%- include('utils/card', {user: user}); %>
-    <% }); %>
+  <% if ( sessionFlash && sessionFlash.message) { %>
+  <div class="uk-alert-<%= sessionFlash.type %>" uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    <p><%= sessionFlash.message %></p>
+  </div>
+  <% } %>
+  <% users.forEach(function(user){ %>
+  <%- include('utils/card', {user: user}); %>
+  <% }); %>
 </div>
 <%- include ('components/footer') %>

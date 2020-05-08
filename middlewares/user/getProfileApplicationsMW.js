@@ -8,6 +8,11 @@ module.exports = function (objectrepository) {
         let theApps = [];
         await userModel.findOne({ email: req.session.userMail }, (err, user) => {
             if (err) {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'DB error.',
+                };
+
                 return next(err);
             }
             theApps = user.apps;
@@ -15,23 +20,25 @@ module.exports = function (objectrepository) {
 
         let theMsgs = [];
         for (var anApp of theApps) {
-            var d = new Date();
-            const hours = d.getHours()-anApp.updated.getHours();
-            const mins = d.getMinutes()-anApp.updated.getMinutes();
-            const time = utils.displayET(hours, mins);
+            const time = utils.displayET(anApp.updated);
 
             await userModel.findOne({ _id: anApp.uid }, (err, user) => {
                 if (err) {
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'DB error.',
+                    };
+
                     return next(err);
                 }
 
-                if(user)
-                    theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : '/avatar-placeholder.gif', time: time});
+                if (user)
+                    theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : '/avatar-placeholder.gif', time: time });
             });
         }
 
         res.locals.messages = theMsgs;
 
-        next();
+        return next();
     };
 };

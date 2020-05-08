@@ -10,24 +10,55 @@ module.exports = function (objectrepository) {
         let theLesson;
         await lessonModel.findOne({ _id: theid }, (err, alesson) => {
             if (err) {
-                console.log(err);
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'DB error.',
+                };
+
+                return next(err);
             }
             theLesson = alesson;
         });
 
         let theUser;
+
         if (theLesson) theUser = String(theLesson._user);
-        else next();
-        if (theUser !== userId) next();
+        else {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'No matching lesson have been found.',
+            };
+
+            return next();
+        }
+
+        if (theUser !== userId) {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'You do not have permission to delete this lesson.',
+            };
+
+            return next();
+        }
         else {
             lessonModel.find({
                 _id: theid
             }).deleteOne(function (err) {
                 if (err) {
-                    next(err);
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'DB error.',
+                    };
+
+                    return next(err);
                 }
-                res.locals.deleted = true;
-                next();
+
+                req.session.sessionFlash = {
+                    type: 'warning',
+                    message: 'The selected lesson has been deleted.',
+                };
+
+                return next();
             });
         }
     };
