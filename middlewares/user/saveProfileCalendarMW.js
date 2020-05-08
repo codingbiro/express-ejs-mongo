@@ -5,6 +5,8 @@ module.exports = function (objectrepository) {
     const date = new Date;
 
     return function (req, res, next) {
+        if(req.session.userRole === "student") res.redirect("/dashboard");
+        
         const thedate = new Date(date.getFullYear(), req.body.month, req.body.day, req.body.hour, req.body.minute);
 
         if (req.body.month <= date.getMonth()) {

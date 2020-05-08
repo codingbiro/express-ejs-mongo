@@ -49,12 +49,11 @@ module.exports = function (app) {
     );
 
     // Dashboard felhasznaloi adatok modositasa
-    app.post('/dashboard', function (req,res) {
-        // TODO
-        authMW(objRepo);
-        saveProfileDataMW(objRepo);
-        res.redirect('/dashboard');
-    });
+    app.post('/dashboard',
+        authMW(objRepo),
+        saveProfileDataMW(objRepo),
+        redirectMW('dashboard'),
+    );
 
     // Dashboard Calendar
     app.get('/dashboard/calendar',
@@ -113,11 +112,10 @@ module.exports = function (app) {
     );
 
     // Login oldalrol elerheto iforgot POST, tehat elkuldi a jelszo resetet emailre es fooldal redirect
+    /* Future feature
     app.post('/login/iforgot', function (req,res) {
-        // TODO
         resetPassMW();
-        res.redirect('/');
-    });
+    });*/
 
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
@@ -126,11 +124,11 @@ module.exports = function (app) {
         renderMW(objRepo,'profile'),
     );
 
-    // Profile oldalon POST, jelentkezni lehet orara
-    app.post('/profile/:id', 
+    // Jelentkezes egy tanarhoz
+    app.get('/profile/:id/apply', 
         authMW(),
         sendProfileApplicationMW(objRepo),
-        redirectMW('profile/:id'),
+        redirectMW('login'),
     );
 
     // Logout

@@ -11,6 +11,10 @@ const User = db.model('User', {
     city: String,
     role: String,
     subjects: [String],
+    apps: [{
+        uid: Schema.Types.ObjectId,
+        updated: { type: Date, default: Date.now },
+    }],
 });
 
 module.exports = User;

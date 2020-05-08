@@ -6,9 +6,12 @@
         <li<% if (typeof applications !== 'undefined') { %> 
             class="uk-active"
         <% } %>><a href="/dashboard/applications/">Applications</a></li>
+        
         <li<% if (typeof calendar !== 'undefined') { %> 
             class="uk-active"
-        <% } %>><a href="/dashboard/calendar/">My calendar</a></li>
+        <% } %><% if (user.role === 'student') { %> 
+            style="display: none;"
+        <% } %> ><a href="/dashboard/calendar/">My calendar</a></li>
     </ul>
 </div>
 <h1 class="uk-heading-medium" style="padding-left: 20%;"><%= headline %></h1>

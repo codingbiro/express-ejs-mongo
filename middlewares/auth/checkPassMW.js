@@ -20,8 +20,9 @@ module.exports = function (objectrepository) {
         if (theUser) {
             if (req.body.password === theUser.password) {
                 req.session.isLoggedIn = true;
-                req.session.userMail = req.body.email;
+                req.session.userMail = theUser.email;
                 req.session.userId = theUser._id;
+                req.session.userRole = theUser.role;
                 return req.session.save(err => { console.log("error: " + err); res.redirect('/dashboard'); });
             }
         }
