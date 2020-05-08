@@ -23,7 +23,7 @@ module.exports = function (objectrepository) {
                 req.session.userMail = theUser.email;
                 req.session.userId = theUser._id;
                 req.session.userRole = theUser.role;
-                return req.session.save(err => { console.log("error: " + err); res.redirect('/dashboard'); });
+                return req.session.save(err => { if (err) console.log(err); res.redirect('/dashboard'); });
             }
         }
         res.locals.error = 'Invalid credentials!';
