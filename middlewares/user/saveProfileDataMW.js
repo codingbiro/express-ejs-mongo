@@ -42,9 +42,10 @@ module.exports = function (objectrepository) {
                 };
             }
         }
-
-        userModel.updateOne({ _id: req.session.userId },
-            {
+        
+        let setter;
+        if (imgPath !== null) {
+            setter = {
                 $set: {
                     desc: desc,
                     name: name,
@@ -52,7 +53,21 @@ module.exports = function (objectrepository) {
                     city: city,
                     img: imgPath,
                 }
-            },
+            }
+        }
+        else {
+            setter = {
+                $set: {
+                    desc: desc,
+                    name: name,
+                    price: Number(price),
+                    city: city,
+                }
+            }
+        }
+
+        userModel.updateOne({ _id: req.session.userId },
+            setter,
             (err) => {
                 if (err) {
                     req.session.sessionFlash = {
