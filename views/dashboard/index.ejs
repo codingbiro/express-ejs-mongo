@@ -29,7 +29,7 @@
         placeholder="<%= user.city ? '' : 'Your city' %>">
     </div>
     <div uk-form-custom="target: true" uk-tooltip="title: Accepted file types: png/jpg/jpeg; pos: right">
-      <img src="<%= user.img ? user.img : '/avatar-placeholder.gif' %>" width="30" alt="<%= user.name %>'s profile picture" />
+      <img src="<%= user.img ? user.img : 'assets/avatar-placeholder.gif' %>" width="30" alt="<%= user.name %>'s profile picture" />
       <input type="file" name="img">
       <input class="uk-input uk-form-width-small" type="text" placeholder="Upload here">
       <div class="uk-text-small uk-inline">Your picture</div>
