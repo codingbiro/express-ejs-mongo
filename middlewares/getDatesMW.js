@@ -9,6 +9,7 @@ module.exports = function (objectrepository) {
                 return next(err);
             }
 
+            lessons.sort((l1,l2) => l1.start > l2.start ? 1 : -1;)
             res.locals.lessons = lessons;
             res.locals.utils = utils;
             
