@@ -50,7 +50,6 @@ module.exports = function (objectrepository) {
             }
         }
         else {
-            console.log("theUser wrong");
             req.session.sessionFlash = {
                 type: 'danger',
                 message: 'Wrong credentials.',

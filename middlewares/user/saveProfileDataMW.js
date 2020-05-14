@@ -2,9 +2,8 @@
 
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
-    console.log(1);
+
     return function (req, res, next) {
-        console.log(11);
         const desc = req.body.desc ? req.body.desc : null;
         const name = req.body.name ? req.body.name : null;
         const pass1 = req.body.pass1 ? req.body.pass1 : null;
@@ -55,13 +54,11 @@ module.exports = function (objectrepository) {
                 }
             },
             (err) => {
-                console.log(111);
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',
                         message: 'DB error.',
                     };
-                    console.log(1111);
                     return next(err);
                 }
             });
@@ -84,7 +81,6 @@ module.exports = function (objectrepository) {
                     }
                 });
         }
-        console.log(11111);
         req.session.sessionFlash = {
             type: 'success',
             message: 'Profile updating has been successful.',
