@@ -37,9 +37,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-// Connecting to MongoDB
-const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_MATECHUS}:${process.env.MONGODB_MATECHPW}@matech0-w7nyo.mongodb.net/${process.env.MONGODB_DEF_DB}`;
-
 // Static folder
 app.use(express.static('assets'));
 
