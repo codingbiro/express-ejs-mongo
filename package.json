@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./index.js",
     "test1": "./node_modules/mocha/bin/mocha tests/unit/middlewares/user/getProfileDataMW.js",
-    "test2": "./node_modules/mocha/bin/mocha tests/unit/middlewares/user/DbErrorgetProfileDataMW.js"
+    "test2": "./node_modules/mocha/bin/mocha tests/unit/middlewares/auth/authMW.js"
   },
   "author": "",
   "license": "ISC",
