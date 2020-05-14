@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGODB_MATECHUS": "matechdb",
+        "MONGODB_MATECHPW": "TECHmmamma999",
+        "MONGODB_DEF_DB": "matech"
+    }
+}
