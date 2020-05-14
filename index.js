@@ -21,17 +21,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
+        console.log(0);
         cb(null, 'assets/images');
     },
     filename: (req, file, cb) => {
+        console.log(00);
         cb(null, new Date().toISOString() + '_' + file.originalname);
     }
 });
 const fileFilter = (req, file, cb) => {
+    console.log(000);
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+        console.log(0000);
         cb(null, true);
     }
     else {
+        console.log(000000);
         cb(null, false);
     }
 }
