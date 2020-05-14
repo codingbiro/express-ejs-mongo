@@ -8,7 +8,8 @@ module.exports = function (objectrepository) {
         const name = req.body.name ? req.body.name : null;
         const pass1 = req.body.pass1 ? req.body.pass1 : null;
         const pass2 = req.body.pass2 ? req.body.pass2 : null;
-        //const img = req.body.img ? req.body.img : null;
+        const img = req.file ? req.file : null;
+        const imgPath = img ? img.path : null;
         const city = req.body.city ? req.body.city : null;
         const price = req.body.price ? req.body.price : null;
 
@@ -49,6 +50,7 @@ module.exports = function (objectrepository) {
                     name: name,
                     price: Number(price),
                     city: city,
+                    img: imgPath,
                 }
             },
             (err) => {

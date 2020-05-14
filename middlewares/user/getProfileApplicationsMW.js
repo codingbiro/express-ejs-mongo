@@ -36,7 +36,7 @@ module.exports = function (objectrepository) {
                 }
 
                 if (user)
-                    theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : '/avatar-placeholder.gif', time: time });
+                    theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : 'avatar-placeholder.gif', time: time });
             });
         }
         res.locals.messages = theMsgs;

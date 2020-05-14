@@ -8,6 +8,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
+const multer = require('multer');
 
 // Using EJS templating
 app.set('view engine', 'ejs');
@@ -17,6 +18,25 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'assets/images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString() + '_' + file.originalname);
+    }
+});
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+        cb(null, true);
+    }
+    else {
+        cb(null, false);
+    }
+}
+// Multer for file uplodas
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('img'));
 
 // Helmet for security
 app.use(helmet());
@@ -38,7 +58,7 @@ app.use(function (req, res, next) {
 });
 
 // Static folder
-app.use(express.static('assets'));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Load routing
 require('./routes/index')(app);
