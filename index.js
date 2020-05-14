@@ -3,6 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash-messages');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
 
 // Using EJS templating
 app.set('view engine', 'ejs');
@@ -12,6 +17,16 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Helmet for security
+app.use(helmet());
+
+// Compression for optimizing page size
+app.use(compression());
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+// Morgan for logs
+app.use(morgan('combined', { stream: accessLogStream }));
 
 // Flash messages
 app.use(flash());
@@ -29,7 +44,7 @@ app.use(express.static('assets'));
 require('./routes/index')(app);
 
 // Port settings
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Start server
 const server = app.listen(PORT, function () {

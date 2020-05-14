@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon ./index.js",
     "test1": "./node_modules/mocha/bin/mocha tests/unit/middlewares/user/getProfileDataMW.js",
-    "test2": "./node_modules/mocha/bin/mocha tests/unit/middlewares/auth/authMW.js"
+    "test2": "./node_modules/mocha/bin/mocha tests/unit/middlewares/auth/authMW.js",
+    "start": "node ./index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,11 +17,14 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
+    "compression": "^1.7.4",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "express-flash-messages": "^0.1.1",
     "express-session": "^1.17.1",
+    "helmet": "^3.22.0",
     "mocha": "^7.1.2",
-    "mongoose": "^5.9.9"
+    "mongoose": "^5.9.9",
+    "morgan": "^1.10.0"
   }
 }
