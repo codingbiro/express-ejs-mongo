@@ -13,7 +13,6 @@ module.exports = function (objectrepository) {
 
         await userModel.findOne({ email: req.body.email }, (err, user) => {
             if (err) {
-                console.log("db error");
                 req.session.sessionFlash = {
                     type: 'danger',
                     message: 'DB error.',
@@ -25,7 +24,6 @@ module.exports = function (objectrepository) {
         });
 
         if (theUser) {
-            console.log('theUser goood');
             if (req.body.password === theUser.password) {
                 req.session.isLoggedIn = true;
                 req.session.userMail = theUser.email;
@@ -34,10 +32,9 @@ module.exports = function (objectrepository) {
 
                 return req.session.save(err => {
                     if (err) {
-                        console.log("db error");
                         req.session.sessionFlash = {
                             type: 'danger',
-                            message: 'DB error.',
+                            message: 'Error in saving your session.',
                         };
 
                         return next(err);
@@ -46,7 +43,6 @@ module.exports = function (objectrepository) {
                 });
             }
             else {
-                console.log("jelszo nem egyezik");
                 req.session.sessionFlash = {
                     type: 'danger',
                     message: 'Wrong credentials.',

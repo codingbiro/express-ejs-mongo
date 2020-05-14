@@ -19,10 +19,10 @@
       <li data-color="<%= lesson._user %>">
         <a href="/profile/<%= lesson._user %>">
           <div class="uk-card uk-card-primary uk-card-body"
-            style="color: white; background-color: #<%= utils.color(lesson._user) %>;">
-            <div><%= utils.formatDate(lesson.start) %></div>
-            <div><%= lesson.duration %> mins</div>
-            <div><%= lesson.subject %></div>
+            style="background-color: #<%= utils.color(lesson._user) %>;">
+            <div style="color: <%= utils.textColor(utils.color(lesson._user)) %>;"><%= utils.formatDate(lesson.start) %></div>
+            <div style="color: <%= utils.textColor(utils.color(lesson._user)) %>;"><%= lesson.duration %> mins</div>
+            <div style="color: <%= utils.textColor(utils.color(lesson._user)) %>;"><%= lesson.subject %></div>
           </div>
         </a>
       </li>

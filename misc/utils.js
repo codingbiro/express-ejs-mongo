@@ -21,6 +21,21 @@ function color(str) {
     return intToRGB(hash);
 }
 
+function textColor(str) {
+    const rgb = hexToRgb(str);
+    const brightness = Math.round(((parseInt(rgb.r) * 299) + (parseInt(rgb.g) * 587) + (parseInt(rgb.b) * 114)) / 1000);
+    return (brightness > 125) ? 'black' : 'white';
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 function displayEllapsedTime(updated) {
     var d = new Date();
     const year = d.getYear() - updated.getYear();
@@ -86,6 +101,7 @@ function isExpired(month, day) {
 
 module.exports = {
     color: color,
+    textColor: textColor,
     displayET: displayEllapsedTime,
     formatDate: formatDate,
     sleep: sleep,
