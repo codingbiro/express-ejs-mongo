@@ -9,10 +9,10 @@ module.exports = function (objectrepository) {
         const pass1 = req.body.pass1 ? req.body.pass1 : null;
         const pass2 = req.body.pass2 ? req.body.pass2 : null;
         const img = req.file ? req.file : null;
-        const imgPath = img ? img.path.slice(5) : null;
+        const imgPath = img ? img.path : null;
         const city = req.body.city ? req.body.city : null;
         const price = req.body.price ? req.body.price : null;
-
+        
         let pass = null;
 
         if (pass1 && pass2) {
