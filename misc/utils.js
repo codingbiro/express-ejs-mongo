@@ -37,13 +37,14 @@ function hexToRgb(hex) {
 }
 
 function displayEllapsedTime(updated) {
+    
     var d = new Date();
     const year = d.getYear() - updated.getYear();
     const month = d.getMonth() - updated.getMonth();
-    const day = d.getDay() - updated.getDay();
+    const day = d.getDate() - updated.getDate();
     const hours = d.getHours() - updated.getHours();
     const mins = d.getMinutes() - updated.getMinutes();
-
+    
     if (year > 1) return `${year} YEARS AGO`;
     if (year === 1) return `${year} YEAR AGO`;
 
