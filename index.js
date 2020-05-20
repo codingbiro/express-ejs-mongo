@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+require('dotenv').config();
 
 // Using EJS templating
 app.set('view engine', 'ejs');
