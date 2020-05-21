@@ -52,7 +52,7 @@ module.exports = function (objectrepository) {
         else {
             req.session.sessionFlash = {
                 type: 'danger',
-                message: 'Wrong credentials.',
+                message: 'Wrong credentials!',
             };
         }
 
