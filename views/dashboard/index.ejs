@@ -22,7 +22,7 @@
     <div class="uk-width-1-4@s uk-position-relative">
       <div class="uk-position-absolute" style="line-height: 40px; right: 15%">€ /lesson</div>
       <input class="uk-input uk-text-left" type="number" min="1" max="1000" name="price"
-        value="<%= user.price ? user.price : '' %>" placeholder="<%= user.price ? '' : 'Price' %>" required>
+        value="<%= user.role === 'teacher' ? (user.price ? user.price : ''):'' %>" placeholder="<%= user.price ? '' : 'Price' %>" required <%= user.role === 'student' ? 'disabled' : ''%>>
     </div>
     <div class="uk-width-1-4@s">
       <input class="uk-input" type="text" name="city" value="<%= user.city ? user.city : '' %>"
