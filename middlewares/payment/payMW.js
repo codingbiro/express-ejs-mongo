@@ -39,7 +39,7 @@ module.exports = function (objectrepository) {
     return function (req, res, next) {
         axios.post(BASE_URL + START, InputProperties)
             .then(function (response) {
-                console.log(response);
+                res.redirect(response.GatewayUrl);
             })
             .catch(function (error) {
                 console.log(error);

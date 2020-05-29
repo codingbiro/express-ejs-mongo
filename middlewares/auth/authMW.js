@@ -10,7 +10,6 @@ module.exports = function (objectrepository) {
 
             return res.redirect('/login');
         }
-        console.log('ASD)');
         next();
     };
 };
