@@ -42,7 +42,7 @@ module.exports = function (objectrepository) {
                 message: 'Invalid user.',
             };
 
-            return next(err);
+            return next();
         }
 
         const InputProperties = {
