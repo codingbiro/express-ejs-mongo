@@ -65,7 +65,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 require('./routes/index')(app);
 
 // Port settings
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6000;
 
 // Start server
 const server = app.listen(PORT, function () {
