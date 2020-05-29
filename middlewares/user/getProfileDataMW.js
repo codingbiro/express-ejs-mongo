@@ -13,6 +13,7 @@ module.exports = function (objectrepository) {
 
                 return next(err);
             }
+            
             res.locals.isLoggedIn = (typeof req.session.isLoggedIn === 'undefined') ? false : req.session.isLoggedIn;
             res.locals.user = user;
 

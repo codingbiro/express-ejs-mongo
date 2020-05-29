@@ -11,7 +11,7 @@ const START = 'v2/payment/start';
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
 
-    return function (req, res, next) {
+    return async function (req, res, next) {
         let theid = 0;
 
         if (req.params.id !== undefined) theid = String(req.params.id);
@@ -23,8 +23,9 @@ module.exports = function (objectrepository) {
 
             return next();
         }
-        let theUser = undefined;
-        userModel.findOne({ _id: theid }, (err, user) => {
+        
+        let theUser;
+        await userModel.findOne({ _id: theid }, (err, user) => {
             if (err) {
                 req.session.sessionFlash = {
                     type: 'danger',
@@ -36,13 +37,8 @@ module.exports = function (objectrepository) {
             theUser = user;
         });
 
-        if (theUser === undefined) {
-            req.session.sessionFlash = {
-                type: 'danger',
-                message: 'Invalid user.',
-            };
-
-            return next();
+        if (user == null) {
+            return next('hiba');
         }
 
         const InputProperties = {
