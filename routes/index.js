@@ -16,6 +16,7 @@ const registerMW = require('../middlewares/auth/registerMW');
 const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalendarMW');
 const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplicationMW');
 const redirectLoggedInMW = require('../middlewares/auth/redirectLoggedInMW');
+const payMW = require('../middlewares/payment/payMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -127,6 +128,7 @@ module.exports = function (app) {
     // Jelentkezes egy tanarhoz
     app.get('/profile/:id/apply',
         authMW(),
+        payMW(objRepo),
         sendProfileApplicationMW(objRepo)
     );
 
