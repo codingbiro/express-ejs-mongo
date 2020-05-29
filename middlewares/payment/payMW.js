@@ -37,7 +37,7 @@ module.exports = function (objectrepository) {
             theUser = user;
         });
 
-        if (user == null) {
+        if (theUser == null) {
             return next('hiba');
         }
 
