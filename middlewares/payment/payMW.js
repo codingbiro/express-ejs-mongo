@@ -9,6 +9,8 @@ const PRIVATE_POS_KEY = "8cd4af88ffa5471e960b3de7adc8e68d";
 const START = 'v2/payment/start';
 
 module.exports = function (objectrepository) {
+    const userModel = objectrepository.userModel;
+
     return function (req, res, next) {
         let theid = 0;
 
