@@ -8,35 +8,68 @@ const PRIVATE_POS_KEY = "8cd4af88ffa5471e960b3de7adc8e68d";
 
 const START = 'v2/payment/start';
 
-const InputProperties = {
-    "POSKey": "8cd4af88ffa5471e960b3de7adc8e68d",
-    "PaymentType": "Immediate",
-    "GuestCheckOut": "true",
-    "FundingSources": ["All"],
-    "PaymentRequestId": 'email',
-    "RedirectUrl": "https://math.biro.wtf/thanks",
-    "CallbackUrl": "https://math.biro.wtf",
-    "Transactions": [{
-        "POSTransactionId": 'email',
-        "Payee": "quick.biro@gmail.com",
-        "Total": 1000,
-        "Items": [
-            {
-                "Name": "telescope",
-                "Description": "haleluja",
-                "Quantity": 1,
-                "Unit": "db",
-                "UnitPrice": 1000,
-                "ItemTotal": 1000
-            }
-        ]
-    }],
-    "Locale": "hu-HU",
-    "Currency": "EUR"
-};
-
 module.exports = function (objectrepository) {
     return function (req, res, next) {
+        let theid = 0;
+
+        if (req.params.id !== undefined) theid = String(req.params.id);
+        else {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'Invalid user in the request.',
+            };
+
+            return next();
+        }
+        let theUser = undefined;
+        userModel.findOne({ _id: theid }, (err, user) => {
+            if (err) {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'DB error.',
+                };
+
+                return next(err);
+            }
+            theUser = user;
+        });
+
+        if (theUser === undefined) {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'Invalid user.',
+            };
+
+            return next(err);
+        }
+
+        const InputProperties = {
+            "POSKey": "8cd4af88ffa5471e960b3de7adc8e68d",
+            "PaymentType": "Immediate",
+            "GuestCheckOut": "true",
+            "FundingSources": ["All"],
+            "PaymentRequestId": theUser.email,
+            "RedirectUrl": "https://math.biro.wtf/thanks",
+            "CallbackUrl": "https://math.biro.wtf",
+            "Transactions": [{
+                "POSTransactionId": theUser.email,
+                "Payee": "quick.biro@gmail.com",
+                "Total": theUser.price,
+                "Items": [
+                    {
+                        "Name": theUser.name,
+                        "Description": theUser.desc,
+                        "Quantity": 1,
+                        "Unit": "db",
+                        "UnitPrice": theUser.price,
+                        "ItemTotal": theUser.price
+                    }
+                ]
+            }],
+            "Locale": "hu-HU",
+            "Currency": "EUR"
+        };
+
         axios.post(BASE_URL + START, InputProperties, {
             headers: {
                 'Content-Type': 'application/json',
