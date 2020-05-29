@@ -37,6 +37,7 @@ module.exports = function (app) {
     // Thankyou page
     app.get('/thanks',
         authMW(),
+        getProfileDataMW(objRepo),
         renderMW(objRepo, 'thanks')
     );
 
