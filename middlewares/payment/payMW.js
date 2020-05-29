@@ -9,7 +9,7 @@ const PRIVATE_POS_KEY = "8cd4af88ffa5471e960b3de7adc8e68d";
 const START = 'v2/payment/start';
 
 const InputProperties = {
-    "POSKey": PRIVATE_POS_KEY,
+    "POSKey": "8cd4af88ffa5471e960b3de7adc8e68d",
     "PaymentType": "Immediate",
     "GuestCheckOut": "true",
     "FundingSources": ["All"],
@@ -32,19 +32,21 @@ const InputProperties = {
         ]
     }],
     "Locale": "hu-HU",
-    "Currency": "HUF"
+    "Currency": "EUR"
 };
 
 module.exports = function (objectrepository) {
     return function (req, res, next) {
-        axios.post(BASE_URL + START, InputProperties)
-            .then(function (response) {
-                res.redirect(response.GatewayUrl);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        next();
+        axios.post(BASE_URL + START, InputProperties, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(function (response) {
+            console.log(response);
+            res.redirect(response.data.GatewayUrl);
+        }).catch(function (error) {
+            console.log(error);
+            next();
+        });
     };
 };
