@@ -34,6 +34,12 @@ module.exports = function (app) {
         renderMW(objRepo, 'index')
     );
 
+    // Thankyou page
+    app.get('thanks',
+        authMW(),
+        renderMW(objRepo, 'thanks')
+    );
+
     // Calendar oldal
     app.get('/calendar',
         getProfileDataMW(objRepo),

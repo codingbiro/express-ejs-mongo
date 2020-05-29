@@ -1,0 +1,12 @@
+<%- include('components/header', {title: "Login"}); %>
+<%- include('components/nav', {login: "active"}); %>
+<div class="uk-container uk-container-xsmall" style="padding-top: 10%;">
+  <% if ( sessionFlash && sessionFlash.message) { %>
+  <div class="uk-alert-<%= sessionFlash.type %>" uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    <p><%= sessionFlash.message %></p>
+  </div>
+  <% } %>
+  <h1>Thank you!</h1>
+</div>
+<%- include ('components/footer') %>
