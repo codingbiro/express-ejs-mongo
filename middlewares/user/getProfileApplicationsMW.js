@@ -14,7 +14,7 @@ module.exports = function (objectrepository) {
         let theMsgs = [];
         for (var anApp of theApps) {
             let theUser = null;
-            let theOrder = null;
+            let theOrders = [];
             const time = utils.displayET(anApp.updated);
 
             await userModel.findOne({ _id: anApp.uid }, (err, user) => {
@@ -29,7 +29,7 @@ module.exports = function (objectrepository) {
                 theUser = user;
             });
 
-            await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
+            await orderModel.findMany({ lid: anApp.lid }, (err, orders) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',
@@ -37,9 +37,11 @@ module.exports = function (objectrepository) {
                     };
                     return next(err);
                 }
-                theOrder = order;
+                theOrders = orders;
             });
-            
+            console.log(theOrders);
+            let theOrder = theOrders.filter(o => o._user === req.session.userId);
+            console.log(theOrder);
             let theState;
             if (theOrder == null) theState = '';
             else theState = theOrder.state;
