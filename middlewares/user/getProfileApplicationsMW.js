@@ -17,6 +17,7 @@ module.exports = function (objectrepository) {
 
                 return next(err);
             }
+            console.log(user);
             theApps = user.apps;
         });
         console.log(theApps);
@@ -45,9 +46,10 @@ module.exports = function (objectrepository) {
                             req.session.sessionFlash = {
                                 type: 'danger',
                                 message: 'DB error.',
-                            };        
+                            };
                             return next(err);
                         }
+                        console.log(order);
                         console.log(3311);
                         theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: order == null ? null : order.state });
                     });
