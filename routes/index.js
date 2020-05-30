@@ -19,6 +19,7 @@ const redirectLoggedInMW = require('../middlewares/auth/redirectLoggedInMW');
 const payMW = require('../middlewares/payment/payMW');
 const barionCBMW = require('../middlewares/payment/barionCBMW');
 const getOrdersMW = require('../middlewares/payment/getOrdersMW');
+const getLessonsMW = require('../middlewares/user/getLessonsMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -152,12 +153,13 @@ module.exports = function (app) {
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
         getProfileDataMW(objRepo),
+        getLessonsMW(objRepo),
         getProfileMW(objRepo),
         renderMW(objRepo, 'profile'),
     );
 
     // Jelentkezes egy tanarhoz
-    app.get('/profile/:id/apply',
+    app.get('/profile/:id/apply/:lid',
         authMW(),
         sendProfileApplicationMW(objRepo)
     );

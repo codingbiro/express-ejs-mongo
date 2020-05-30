@@ -75,7 +75,7 @@ module.exports = function (objectrepository) {
                 'Content-Type': 'application/json',
             }
         }).then(function (response) {
-            orderModel.create({ title: theUser.name, desc: theUser.desc, state: response.data.Status, total: theUser.price, pid: response.data.PaymentId, _user: req.session.userId }, (err) => {
+            orderModel.create({ title: theUser.name, desc: theUser.desc, state: response.data.Status, total: theUser.price, pid: response.data.PaymentId, _user: req.session.userId, teacher: theid }, (err) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',

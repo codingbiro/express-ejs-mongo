@@ -11,7 +11,8 @@ const Order = db.model('Order', {
     _user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    teacher: Schema.Types.ObjectId
 });
 
 module.exports = Order;

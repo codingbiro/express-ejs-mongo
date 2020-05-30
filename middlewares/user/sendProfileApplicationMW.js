@@ -6,8 +6,10 @@ module.exports = function (objectrepository) {
 
     return async function (req, res, next) {
         let theid = 0;
+        let thelid = 0;
 
         if (req.params.id !== undefined) theid = String(req.params.id);
+        if (req.params.lid !== undefined) thelid = String(req.params.lid);
         else {
             req.session.sessionFlash = {
                 type: 'danger',
@@ -21,7 +23,7 @@ module.exports = function (objectrepository) {
             const uId = String(req.session.userId);
 
             userModel.updateOne({ _id: theid },
-                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(uId) }] } },
+                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(uId), lid: mongoose.Types.ObjectId(lid)}] } },
                 (err) => {
                     if (err) {
                         req.session.sessionFlash = {
@@ -33,7 +35,7 @@ module.exports = function (objectrepository) {
                     }
                 });
             await userModel.updateOne({ _id: uId },
-                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(theid) }] } },
+                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(theid), lid: mongoose.Types.ObjectId(lid) }] } },
                 (err) => {
                     if (err) {
                         req.session.sessionFlash = {

@@ -14,6 +14,7 @@ const User = db.model('User', {
     apps: [{
         uid: Schema.Types.ObjectId,
         updated: { type: Date, default: Date.now },
+        lid: Schema.Types.ObjectId,
     }],
 });
 
