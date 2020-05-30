@@ -16,6 +16,9 @@
       <small> Transaction number: <%= order.pid %><br/>Timestamp: <%= order.start %></small>
     </div>
   <% }); %>
+  <% if ( orders.length === 0) { %>
+    <h2>Such emptiness.</h2>
+  <% } %>
   </div>
 </div>
 <%- include ('components/footer') %>

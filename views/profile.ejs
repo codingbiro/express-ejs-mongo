@@ -16,9 +16,7 @@
     <div>
       <div class="uk-card-body">
         <h3 class="uk-card-title"><%= user.name %></h3>
-        <a href="#modal">
-          <div class="uk-card-badge uk-label">Apply here!</div>
-        </a>
+          <div class="uk-card-badge uk-label">New!</div>
         <p><%= user.desc %></p>
       </div>
     </div>
@@ -33,16 +31,15 @@
     <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua.</dd-->
   </dl>
-  <div id="modal" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-      <h2 class="uk-modal-title">Headline</h2>
+  <div>
+    <h2 class="uk-modal-title">Available dates</h2>
       <table class="uk-table uk-table-divider">
         <thead>
             <tr>
                 <th>Start date</th>
                 <th>Duration (mins)</th>
                 <th>Subject</th>
-                <th></th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -54,12 +51,11 @@
             <td><a href="apply/<%= lesson._id %>"><button class="uk-button uk-button-primary uk-button-small">Apply</button></a></td>
           </tr>
       <% }); %>
+      <% if ( lessons.length === 0) { %>
+        <h2>Such emptiness.</h2>
+      <% } %>
         </tbody>
       </table>
-      <p class="uk-text-right">
-        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-      </p>
-    </div>
   </div>
 </div>
 <%- include ('components/footer') %>
