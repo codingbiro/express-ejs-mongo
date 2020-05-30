@@ -7,13 +7,15 @@
     <p><%= sessionFlash.message %></p>
   </div>
   <% } %>
+  <div class="uk-child-width-expand@s uk-text-center" uk-grid>
   <% orders.forEach(function(order){ %>
-  <div style="padding: 20px; text-align: center; margin: auto;">
-    <h1>Order at <%= order.start %> from <%= order.title %></h1>
-    <h2>Status: <%= order.state %> <a href="/refreshOrder/?paymentId=<%= order.pid%>">Refresh</a></h2>
-    <h3>Total: € <%= order.total %></h3>
-    <h4>Id: <%= order.pid %></h4>
-  </div>
+    <div class="uk-card uk-card-default uk-card-body">
+      <h1>Lesson from <%= order.title %></h1>
+      <h3> Status: <%= order.state %><br/> <!--a href="/refreshOrder/?paymentId=<%= order.pid%>">Refresh</a-->
+        Total: € <%= order.total %></h3>
+      <small> Transaction number: <%= order.pid %><br/>timestamp: <%= order.start %></small>
+    </div>
   <% }); %>
+  </div>
 </div>
 <%- include ('components/footer') %>

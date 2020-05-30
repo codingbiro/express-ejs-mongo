@@ -49,6 +49,7 @@ module.exports = function (objectrepository) {
                 };
             }
         }
+        // Ez az ag lefut neha
         else {
             req.session.sessionFlash = {
                 type: 'danger',
