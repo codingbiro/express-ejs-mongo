@@ -10,26 +10,26 @@ const STATE = 'v2/payment/getpaymentstate';
 module.exports = function (objectrepository) {
     //const userModel = objectrepository.userModel;
 
-    return async function (req, res, next) {
+    return function (req, res, next) {
         let theid = 0;
         if (req.params.id !== undefined) theid = req.params.paymentId;
-        console.log("theasd2: " + req.body);
+        if (req.body !== undefined) console.log("theasd2: " + req.body);
         console.log("theasd1: " + theid);
         return next();
-    /*
-        axios.post(BASE_URL + STATE, {
-            "POSKey": PRIVATE_POS_KEY,
-            "PaymentId": theid
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then(function (response) {
-            console.log(response);
-            res.redirect(response.data.GatewayUrl);
-        }).catch(function (error) {
-            console.log(error);
-            next();
-        });*/
+        /*
+            axios.post(BASE_URL + STATE, {
+                "POSKey": PRIVATE_POS_KEY,
+                "PaymentId": theid
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(function (response) {
+                console.log(response);
+                res.redirect(response.data.GatewayUrl);
+            }).catch(function (error) {
+                console.log(error);
+                next();
+            });*/
     };
 };
