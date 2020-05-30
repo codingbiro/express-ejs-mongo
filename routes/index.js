@@ -37,7 +37,7 @@ module.exports = function (app) {
     );
 
     // Refresh status
-    app.post('/refreshOrder',
+    app.get('/refreshOrder',
         barionCBMW(objRepo),
         redirectMW('orders')
     );
