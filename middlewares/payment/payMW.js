@@ -79,7 +79,7 @@ module.exports = function (objectrepository) {
             res.redirect(response.data.GatewayUrl);
         }).catch(function (error) {
             console.log(error);
-            next();
+            next(error);
         });
     };
 };

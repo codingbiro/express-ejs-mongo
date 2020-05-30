@@ -1,4 +1,4 @@
-//Elmenti az adott profil adatait a db-be
+// TODO nem frissulnek az adatok mentes utan a screenen
 
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
