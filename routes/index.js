@@ -33,7 +33,8 @@ module.exports = function (app) {
 
     // Barion cb
     app.post('/',
-        barionCBMW(objRepo)
+        barionCBMW(objRepo),
+        (req, res) => res.sendStatus(200)
     );
 
     // Refresh status

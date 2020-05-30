@@ -38,7 +38,7 @@ module.exports = function (objectrepository) {
         }).catch(function (error) {
             console.log(error);            
         });
-
+        
         return next();
     };
 };
