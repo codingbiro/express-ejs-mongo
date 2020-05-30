@@ -14,13 +14,9 @@ module.exports = function (objectrepository) {
         let theid = 0;
         if (req.query.paymentId !== undefined) theid = req.query.paymentId;
 
-        await axios.post(BASE_URL + STATE, {
+        await axios.get(BASE_URL + STATE, {
             "POSKey": PRIVATE_POS_KEY,
             "PaymentId": theid
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
         }).then(function (response) {
             if (response) {
                 orderModel.updateOne({ pid: theid },
