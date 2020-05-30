@@ -60,7 +60,7 @@ function displayEllapsedTime(updated) {
     else {
         if (hours === 0) {
             if (mins === 1) return '1 MIN AGO';
-            if (mins === 0) return '0 MIN AGO';
+            if (mins === 0) return 'JUST NOW';
             else return `${mins} MINS AGO`;
         }
     }

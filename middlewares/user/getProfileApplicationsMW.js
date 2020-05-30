@@ -17,7 +17,7 @@ module.exports = function (objectrepository) {
             }
             theApps = user.apps;
         });
-
+        console.log(theApps);
         // Sorting the apps by their updated field
         theApps.sort((a,b) => (a.updated < b.updated) ? 1 : -1);
 
