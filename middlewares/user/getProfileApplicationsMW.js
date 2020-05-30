@@ -54,7 +54,7 @@ module.exports = function (objectrepository) {
                 console.log(theOrders[0]._user);
                 console.log(anApp.uid);
                 console.log(theOrder);
-                console.log(theOrders[0]._user == anApp.uid);
+                console.log(String(theOrders[0]._user) === String(anApp.uid));
             }
             let theState = '';
             if (theOrder.length === 1) theState = theOrder[0].state;
