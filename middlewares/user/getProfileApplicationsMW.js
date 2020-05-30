@@ -47,14 +47,9 @@ module.exports = function (objectrepository) {
             console.log(req.session.userId);
             console.log(theOrders);
             let theOrder = [];
-            if (res.locals.user.role === 'student') theOrder = theOrders.filter(o => o._user == req.session.userId);
+            if (res.locals.user.role === 'student') theOrder = theOrders.filter(o => String(o._user) === String(req.session.userId));
             if (res.locals.user.role === 'teacher') {
-                console.log('asddsa');
-                theOrder = theOrders.filter(o => o._user == anApp.uid);
-                console.log(String(theOrders[0]._user));
-                console.log(String(anApp.uid));
-                console.log(theOrder);
-                console.log(String(theOrders[0]._user) === String(anApp.uid));
+                theOrder = theOrders.filter(o => String(o._user) === String(anApp.uid));
             }
             let theState = '';
             if (theOrder.length === 1) theState = theOrder[0].state;
