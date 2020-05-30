@@ -44,7 +44,9 @@ module.exports = function (objectrepository) {
             console.log(anApp.lid);
             console.log(req.session.userId);
             console.log(theOrders);
-            let theOrder = theOrders.filter(o => o._user == req.session.userId);
+            let theOrder = [];
+            if (res.locals.user.role === 'student') theOrder = theOrders.filter(o => o._user == req.session.userId);
+            if (res.locals.user.role === 'teacher') theOrder = theOrders.filter(o => o._user == anApp.uid);
             let theState = '';
             if (theOrder.length === 1) theState = theOrder[0].state;
             console.log(theOrder);
