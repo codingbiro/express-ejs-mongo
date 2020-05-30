@@ -20,7 +20,7 @@ module.exports = function (objectrepository) {
         });
         console.log(theApps);
         // Sorting the apps by their updated field
-        theApps.sort((a,b) => (a.updated < b.updated) ? 1 : -1);
+        theApps.sort((a, b) => (a.updated < b.updated) ? 1 : -1);
 
         let theMsgs = [];
         for (var anApp of theApps) {
@@ -37,8 +37,7 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
 
-                if (user)
-                    theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time });
+                if (user != null) theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time });
             });
         }
         console.log(theMsgs);
