@@ -36,6 +36,12 @@ module.exports = function (app) {
         barionCBMW(objRepo)
     );
 
+    // Refresh status
+    app.post('/refreshOrder',
+        barionCBMW(objRepo),
+        redirectMW('orders')
+    );
+
     // Index oldal
     app.get('/',
         getProfileDataMW(objRepo),
