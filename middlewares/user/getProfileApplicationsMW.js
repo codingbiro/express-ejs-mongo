@@ -28,7 +28,7 @@ module.exports = function (objectrepository) {
             console.log(1)
             const time = utils.displayET(anApp.updated);
 
-            await userModel.findOne({ _id: anApp.uid }, (err, user) => {
+            await userModel.findOne({ _id: anApp.uid }, async (err, user) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',
