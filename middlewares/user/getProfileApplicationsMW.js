@@ -39,6 +39,8 @@ module.exports = function (objectrepository) {
                 }
                 theOrders = orders;
             });
+            console.log(anApp.lid);
+            console.log(req.session.userId);
             console.log(theOrders);
             let theOrder = theOrders.filter(o => o._user == req.session.userId);
             let theState = '';
