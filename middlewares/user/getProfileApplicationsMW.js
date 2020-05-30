@@ -24,6 +24,7 @@ module.exports = function (objectrepository) {
 
         let theMsgs = [];
         for (var anApp of theApps) {
+            console.log(1)
             const time = utils.displayET(anApp.updated);
 
             await userModel.findOne({ _id: anApp.uid }, (err, user) => {
@@ -40,6 +41,7 @@ module.exports = function (objectrepository) {
                     theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time });
             });
         }
+        console.log(theMsgs);
         res.locals.messages = theMsgs;
 
         return next();
