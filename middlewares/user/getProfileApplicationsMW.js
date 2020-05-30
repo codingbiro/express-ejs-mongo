@@ -37,7 +37,7 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
 
-                if (user != null) theMsgs.push({ name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time });
+                if (user != null) theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time });
             });
         }
         console.log(theMsgs);
