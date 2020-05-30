@@ -40,7 +40,7 @@ module.exports = function (objectrepository) {
                 theOrders = orders;
             });
             console.log(theOrders);
-            let theOrder = theOrders.filter(o => o._user === req.session.userId);
+            let theOrder = theOrders.filter(o => o._user == req.session.userId);
             console.log(theOrder);
             let theState;
             if (theOrder == null) theState = '';
