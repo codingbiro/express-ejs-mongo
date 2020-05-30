@@ -28,15 +28,18 @@ module.exports = function (app) {
         lessonModel: lessonModel,
     };
 
+    // Barion cb
+    app.post('/',
+        barionCBMW(objRepo),
+        redirectMW('dashboard')
+    );
+
     // Index oldal
     app.get('/',
         getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         renderMW(objRepo, 'index')
     );
-
-    // Payment cb
-    app.post('/:paymentId', barionCBMW(objRepo));
 
     // Thankyou page
     app.get('/thanks',
