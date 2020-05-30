@@ -1,0 +1,17 @@
+const Schema = require('mongoose').Schema;
+const db = require('../config/db');
+
+const Order = db.model('Order', {
+    start: { type: Date, default: Date.now },
+    state: { type: String, enum: ['Prepared', 'Started', 'InProgress', 'Canceled', 'Succeeded', 'Failed', 'Expired', 'Waiting', 'Reserved', 'Authorized', 'PartiallySucceeded'] },
+    total: String,
+    pid: String,
+    title: String,
+    desc: String,
+    _user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
+});
+
+module.exports = Order;

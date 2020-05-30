@@ -1,0 +1,19 @@
+<%- include('components/header', {title: "Orders"}); %>
+<%- include('components/nav', {orders: "active", isLoggedIn: isLoggedIn}); %>
+<div class="uk-container uk-container-xsmall" style="padding-top: 40px;">
+  <% if ( sessionFlash && sessionFlash.message) { %>
+  <div class="uk-alert-<%= sessionFlash.type %>" uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    <p><%= sessionFlash.message %></p>
+  </div>
+  <% } %>
+  <% orders.forEach(function(order){ %>
+  <div style="padding: 20px; text-align: center; margin: auto;">
+    <h1>Order at <%= order.start %> from <%= order.title %></h1>
+    <h2>Status: <%= order.status %></h2>
+    <h3>Total: € <%= order.total %></h3>
+    <h4>Id: <%= order.pid %></h4>
+  </div>
+  <% }); %>
+</div>
+<%- include ('components/footer') %>

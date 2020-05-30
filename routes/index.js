@@ -18,20 +18,22 @@ const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplica
 const redirectLoggedInMW = require('../middlewares/auth/redirectLoggedInMW');
 const payMW = require('../middlewares/payment/payMW');
 const barionCBMW = require('../middlewares/payment/barionCBMW');
+const getOrdersMW = require('../middlewares/payment/getOrdersMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
+const orderModel = require('../models/order');
 
 module.exports = function (app) {
     const objRepo = {
         userModel: userModel,
         lessonModel: lessonModel,
+        orderModel: orderModel
     };
 
     // Barion cb
     app.post('/',
-        barionCBMW(objRepo),
-        redirectMW('dashboard')
+        barionCBMW(objRepo)
     );
 
     // Index oldal
@@ -39,6 +41,14 @@ module.exports = function (app) {
         getProfileDataMW(objRepo),
         getProfilesMW(objRepo),
         renderMW(objRepo, 'index')
+    );
+
+    // Index oldal
+    app.get('/orders',
+        authMW(),
+        getProfileDataMW(objRepo),
+        getOrdersMW(objRepo),
+        renderMW(objRepo, 'orders')
     );
 
     // Thankyou page

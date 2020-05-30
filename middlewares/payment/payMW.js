@@ -10,6 +10,7 @@ const START = 'v2/payment/start';
 
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
+    const orderModel = objectrepository.orderModel;
 
     return async function (req, res, next) {
         let theid = 0;
@@ -73,7 +74,16 @@ module.exports = function (objectrepository) {
                 'Content-Type': 'application/json',
             }
         }).then(function (response) {
-            console.log(response);
+            orderModel.create({ title: theUser.name, desc: theUser.desc, state: response.data.Status, total: theUser.price, pid: response.data.PaymentId, _user: req.session.userId }, (err) => {
+                if (err) {
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'DB error.',
+                    };
+    
+                    return next(err);
+                }
+            });
             res.redirect(response.data.GatewayUrl);
         }).catch(function (error) {
             console.log(error);
