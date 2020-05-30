@@ -39,13 +39,14 @@ module.exports = function (objectrepository) {
                 }
                 theOrders = orders;
             });
-            console.log(theOrders);
+            
             let theOrder = theOrders.filter(o => o._user == req.session.userId);
             console.log(theOrder);
             let theState;
             if (theOrder == null) theState = '';
             else theState = theOrder.state;
-            
+            console.log(theState);
+            console.log('A');
             theMsgs.push({ uid: theUser._id, name: theUser.name, email: theUser.email, img: theUser.img ? theUser.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: theState });
         }
 
