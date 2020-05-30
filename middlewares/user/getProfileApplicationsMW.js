@@ -39,11 +39,11 @@ module.exports = function (objectrepository) {
                 }
                 theOrder = order;
             });
-            console.log(theOrder);
+            
             let theState;
             if (theOrder == null) theState = '';
             else theState = theOrder.state;
-            console.log(theState);
+            
             theMsgs.push({ uid: theUser._id, name: theUser.name, email: theUser.email, img: theUser.img ? theUser.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: theState });
         }
 
