@@ -3,6 +3,7 @@ const utils = require('../../misc/utils');
 
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
+    const orderModel = objectrepository.orderModel;
 
     return async function (req, res, next) {
         let theApps = [];
@@ -37,7 +38,20 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
 
-                if (user != null) theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time });
+                if (user != null) {
+                    await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
+                        if (err) {
+                            req.session.sessionFlash = {
+                                type: 'danger',
+                                message: 'DB error.',
+                            };
+        
+                            return next(err);
+                        }
+
+                        theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: order == null ? null : order.state });
+                    });
+                }
             });
         }
         console.log(theMsgs);

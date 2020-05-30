@@ -14,8 +14,9 @@ module.exports = function (objectrepository) {
 
     return async function (req, res, next) {
         let theid = 0;
-
+        let thelid = 0;
         if (req.params.id !== undefined) theid = String(req.params.id);
+        if (req.params.lid !== undefined) thelid = String(req.params.lid);
         else {
             req.session.sessionFlash = {
                 type: 'danger',
@@ -75,7 +76,7 @@ module.exports = function (objectrepository) {
                 'Content-Type': 'application/json',
             }
         }).then(function (response) {
-            orderModel.create({ title: theUser.name, desc: theUser.desc, state: response.data.Status, total: theUser.price, pid: response.data.PaymentId, _user: req.session.userId, teacher: theid }, (err) => {
+            orderModel.create({ title: theUser.name, desc: theUser.desc, state: response.data.Status, total: theUser.price, pid: response.data.PaymentId, _user: req.session.userId, teacher: theid, lid: thelid }, (err) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',

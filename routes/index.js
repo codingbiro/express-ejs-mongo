@@ -164,8 +164,8 @@ module.exports = function (app) {
         sendProfileApplicationMW(objRepo)
     );
 
-    app.get('/profile/:id/pay',
-        //check if already applied for
+    app.get('/profile/:id/pay/:lid',
+        //check if already applied /paid for
         authMW(),
         payMW(objRepo)
     );
