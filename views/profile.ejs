@@ -51,11 +51,11 @@
             <td><a href="<%= user._id %>/apply/<%= lesson._id %>"><button class="uk-button uk-button-primary uk-button-small">Apply</button></a></td>
           </tr>
       <% }); %>
+        </tbody>
+      </table>
       <% if ( lessons.length === 0) { %>
         <h2>Such emptiness.</h2>
       <% } %>
-        </tbody>
-      </table>
   </div>
 </div>
 <%- include ('components/footer') %>

@@ -41,14 +41,14 @@ module.exports = function (objectrepository) {
                 if (user != null) {
                     await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
                         if (err) {
+                            console.log(33);
                             req.session.sessionFlash = {
                                 type: 'danger',
                                 message: 'DB error.',
-                            };
-        
+                            };        
                             return next(err);
                         }
-
+                        console.log(3311);
                         theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: order == null ? null : order.state });
                     });
                 }
