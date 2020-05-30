@@ -8,7 +8,7 @@ module.exports = function (objectrepository) {
     return async function (req, res, next) {
         let theApps = [];
         console.log(req.session.userMail);
-        await userModel.findOne({ email: req.session.userMail }, (err, user) => {
+        await userModel.findOne({ email: req.session.userMail }, async (err, user) => {
             if (err) {
                 req.session.sessionFlash = {
                     type: 'danger',
