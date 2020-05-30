@@ -1,4 +1,4 @@
-//Megnezi jo e a jelszo a belepesnel
+//TODO else ag miert fut le
 const utils = require('../../misc/utils');
 
 module.exports = function (objectrepository) {

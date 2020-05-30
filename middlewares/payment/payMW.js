@@ -1,10 +1,10 @@
+// TODO hiba miert fut le
 const axios = require('axios');
+require('dotenv').config();
 
-// Barion test API base
-const BASE_URL = 'https://api.test.barion.com/';
-
-const PUBLIC_KEY = "86d23b226695401aafccec089b74df0a";
-const PRIVATE_POS_KEY = "8cd4af88ffa5471e960b3de7adc8e68d";
+// Barion strings
+const BASE_URL = process.env.NODE_ENV ? process.env.BARION_API_BASE : 'https://api.test.barion.com/';
+const PRIVATE_POS_KEY = process.env.NODE_ENV ? process.env.BARION_API_KEY : "8cd4af88ffa5471e960b3de7adc8e68d";
 
 const START = 'v2/payment/start';
 
@@ -13,20 +13,10 @@ module.exports = function (objectrepository) {
     const orderModel = objectrepository.orderModel;
 
     return async function (req, res, next) {
-        let theid = 0;
-        let thelid = 0;
-        if (req.params.id !== undefined) theid = String(req.params.id);
-        if (req.params.lid !== undefined) thelid = String(req.params.lid);
-        else {
-            req.session.sessionFlash = {
-                type: 'danger',
-                message: 'Invalid user in the request.',
-            };
+        const theid = String(req.params.id);
+        const thelid = String(req.params.lid);
+        let theUser = null;
 
-            return next();
-        }
-        
-        let theUser;
         await userModel.findOne({ _id: theid }, (err, user) => {
             if (err) {
                 req.session.sessionFlash = {
@@ -38,7 +28,7 @@ module.exports = function (objectrepository) {
             }
             theUser = user;
         });
-        
+
         // Ez neha igaz, miert
         if (theUser == null) {
             return next('hiba');
@@ -49,11 +39,11 @@ module.exports = function (objectrepository) {
             "PaymentType": "Immediate",
             "GuestCheckOut": "true",
             "FundingSources": ["All"],
-            "PaymentRequestId": theUser.email,
+            "PaymentRequestId": req.session.userId + theUser.email,
             "RedirectUrl": "https://math.biro.wtf/thanks",
             "CallbackUrl": "https://math.biro.wtf",
             "Transactions": [{
-                "POSTransactionId": theUser.email,
+                "POSTransactionId": req.session.userId + theUser.email,
                 "Payee": "quick.biro@gmail.com",
                 "Total": theUser.price,
                 "Items": [
@@ -82,7 +72,7 @@ module.exports = function (objectrepository) {
                         type: 'danger',
                         message: 'DB error.',
                     };
-    
+
                     return next(err);
                 }
             });

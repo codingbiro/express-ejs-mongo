@@ -1,5 +1,3 @@
-// Register
-
 module.exports = function (objectrepository) {
     const userModel = objectrepository.userModel;
 
@@ -18,7 +16,7 @@ module.exports = function (objectrepository) {
                     type: 'danger',
                     message: 'DB error.',
                 };
-                
+
                 return next(err);
             }
 
@@ -38,7 +36,7 @@ module.exports = function (objectrepository) {
                         type: 'danger',
                         message: 'DB error.',
                     };
-                    
+
                     return next(err);
                 }
 

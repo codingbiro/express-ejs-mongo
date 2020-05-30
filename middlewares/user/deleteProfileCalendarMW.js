@@ -1,13 +1,11 @@
-// ora torlese
-
 module.exports = function (objectrepository) {
     const lessonModel = objectrepository.lessonModel;
 
     return async function (req, res, next) {
-        let theid = 0;
-        if (req.params.id !== undefined) theid = req.params.id;
+        const theid = req.params.id;
         const userId = req.session.userId;
-        let theLesson;
+
+        let theLesson = null;
         await lessonModel.findOne({ _id: theid }, (err, alesson) => {
             if (err) {
                 req.session.sessionFlash = {
@@ -20,9 +18,8 @@ module.exports = function (objectrepository) {
             theLesson = alesson;
         });
 
-        let theUser;
-
-        if (theLesson) theUser = String(theLesson._user);
+        let theUser = null;
+        if (theLesson != null) theUser = String(theLesson._user);
         else {
             req.session.sessionFlash = {
                 type: 'danger',

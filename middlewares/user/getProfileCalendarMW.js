@@ -3,6 +3,7 @@ const utils = require('../../misc/utils');
 
 module.exports = function (objectrepository) {
     const lessonModel = objectrepository.lessonModel;
+
     return function (req, res, next) {
         if (req.session.userRole === "student") res.redirect("/dashboard");
 
@@ -15,6 +16,7 @@ module.exports = function (objectrepository) {
 
                 return next(err);
             }
+
             res.locals.lessons = lessons;
             res.locals.utils = utils;
 

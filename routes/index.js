@@ -161,6 +161,7 @@ module.exports = function (app) {
     // Jelentkezes egy tanarhoz
     app.get('/profile/:id/apply/:lid',
         authMW(),
+        getProfileDataMW(objRepo),
         sendProfileApplicationMW(objRepo)
     );
 

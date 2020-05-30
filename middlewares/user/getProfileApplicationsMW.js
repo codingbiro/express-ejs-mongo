@@ -1,4 +1,3 @@
-//Betolti az adott profil jelentkezeseit a db-bol, kilistazza az adatait
 const utils = require('../../misc/utils');
 
 module.exports = function (objectrepository) {
@@ -7,60 +6,45 @@ module.exports = function (objectrepository) {
 
     return async function (req, res, next) {
         let theApps = [];
-        console.log(req.session.userMail);
-        await userModel.findOne({ email: req.session.userMail }, async (err, user) => {
-            if (err) {
-                req.session.sessionFlash = {
-                    type: 'danger',
-                    message: 'DB error.',
-                };
 
-                return next(err);
-            }
+        if (typeof res.locals != 'undefined' && res.locals.user != null) theApps = res.locals.user.apps;
 
-            console.log(user);
-            theApps = user.apps;
+        theApps.sort((a, b) => (a.updated < b.updated) ? 1 : -1);
 
-            // Sorting the apps by their updated field
-            theApps.sort((a, b) => (a.updated < b.updated) ? 1 : -1);
+        let theMsgs = [];
+        for (var anApp of theApps) {
+            let theUser = null;
+            let theOrder = null;
+            const time = utils.displayET(anApp.updated);
 
-            let theMsgs = [];
-            for (var anApp of theApps) {
-                console.log(1)
-                const time = utils.displayET(anApp.updated);
+            await userModel.findOne({ _id: anApp.uid }, (err, user) => {
+                if (err) {
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'DB error.',
+                    };
 
-                await userModel.findOne({ _id: anApp.uid }, async (err, user) => {
-                    if (err) {
-                        req.session.sessionFlash = {
-                            type: 'danger',
-                            message: 'DB error.',
-                        };
+                    return next(err);
+                }
+                theUser = user;
+            });
 
-                        return next(err);
-                    }
+            await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
+                if (err) {
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'DB error.',
+                    };
+                    return next(err);
+                }
+                theOrder = order;
+            });
 
-                    if (user != null) {
-                        await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
-                            if (err) {
-                                console.log(33);
-                                req.session.sessionFlash = {
-                                    type: 'danger',
-                                    message: 'DB error.',
-                                };
-                                return next(err);
-                            }
-                            console.log(order);
-                            console.log(3311);
-                            theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: order == null ? null : order.state });
-                        });
-                    }
-                });
-            }
-            console.log(theMsgs);
-            res.locals.messages = theMsgs;
+            theMsgs.push({ uid: theUser._id, name: theUser.name, email: theUser.email, img: theUser.img ? theUser.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: theOrder != null ? theOrder.state : null });
+        }
 
-            return next();
-        });
+        res.locals.messages = theMsgs;
 
-    };
+        return next();
+    }
 };
