@@ -17,48 +17,50 @@ module.exports = function (objectrepository) {
 
                 return next(err);
             }
+
             console.log(user);
             theApps = user.apps;
+
+            // Sorting the apps by their updated field
+            theApps.sort((a, b) => (a.updated < b.updated) ? 1 : -1);
+
+            let theMsgs = [];
+            for (var anApp of theApps) {
+                console.log(1)
+                const time = utils.displayET(anApp.updated);
+
+                await userModel.findOne({ _id: anApp.uid }, async (err, user) => {
+                    if (err) {
+                        req.session.sessionFlash = {
+                            type: 'danger',
+                            message: 'DB error.',
+                        };
+
+                        return next(err);
+                    }
+
+                    if (user != null) {
+                        await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
+                            if (err) {
+                                console.log(33);
+                                req.session.sessionFlash = {
+                                    type: 'danger',
+                                    message: 'DB error.',
+                                };
+                                return next(err);
+                            }
+                            console.log(order);
+                            console.log(3311);
+                            theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: order == null ? null : order.state });
+                        });
+                    }
+                });
+            }
+            console.log(theMsgs);
+            res.locals.messages = theMsgs;
+
+            return next();
         });
-        console.log(theApps);
-        // Sorting the apps by their updated field
-        theApps.sort((a, b) => (a.updated < b.updated) ? 1 : -1);
 
-        let theMsgs = [];
-        for (var anApp of theApps) {
-            console.log(1)
-            const time = utils.displayET(anApp.updated);
-
-            await userModel.findOne({ _id: anApp.uid }, async (err, user) => {
-                if (err) {
-                    req.session.sessionFlash = {
-                        type: 'danger',
-                        message: 'DB error.',
-                    };
-
-                    return next(err);
-                }
-
-                if (user != null) {
-                    await orderModel.findOne({ lid: anApp.lid }, (err, order) => {
-                        if (err) {
-                            console.log(33);
-                            req.session.sessionFlash = {
-                                type: 'danger',
-                                message: 'DB error.',
-                            };
-                            return next(err);
-                        }
-                        console.log(order);
-                        console.log(3311);
-                        theMsgs.push({ uid: user._id, name: user.name, email: user.email, img: user.img ? user.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: order == null ? null : order.state });
-                    });
-                }
-            });
-        }
-        console.log(theMsgs);
-        res.locals.messages = theMsgs;
-
-        return next();
     };
 };
