@@ -42,6 +42,7 @@ module.exports = function (objectrepository) {
                 console.log(orders);
             });
             console.log(anApp.lid);
+            console.log(anApp.uid);
             console.log(req.session.userId);
             console.log(theOrders);
             let theOrder = [];
