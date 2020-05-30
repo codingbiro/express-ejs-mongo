@@ -9,7 +9,12 @@
     <% } %>
   <%- include('../components/subheader', {applications: "active", headline: "Your inbox"}); %>
   <% messages.forEach(function(msg){ %>
-  <% if (user.role === 'student') include('../utils/message', {message: msg}); else if (user.role === 'teacher') include('../utils/message2', {message: msg}); %>
+  <% if (user.role === 'student') %>
+  <%- include('../utils/message', {message: msg}); %>
+  <% } %>
+  <% if (user.role === 'teacher') %>
+  <%- include('../utils/message2', {message: msg}); %>
+  <% } %>
   <% }); %>
   <% if ( messages.length === 0) { %>
   <h2>Such emptiness.</h2>
