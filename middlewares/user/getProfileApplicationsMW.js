@@ -42,9 +42,8 @@ module.exports = function (objectrepository) {
             
             let theOrder = theOrders.filter(o => o._user == req.session.userId);
             console.log(theOrder);
-            let theState;
-            if (theOrder == null) theState = '';
-            else theState = theOrder.state;
+            let theState = '';
+            if (theOrder.length === 1) theState = theOrder[0].state;
             console.log(theState);
             console.log('A');
             theMsgs.push({ uid: theUser._id, name: theUser.name, email: theUser.email, img: theUser.img ? theUser.img : 'assets/avatar-placeholder.gif', time: time, lid: anApp.lid, state: theState });
