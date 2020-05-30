@@ -12,7 +12,7 @@ module.exports = function (objectrepository) {
         const imgPath = img ? img.path : null;
         const city = req.body.city ? req.body.city : null;
         const price = req.body.price ? req.body.price : null;
-        
+
         let pass = null;
 
         if (pass1 && pass2) {
@@ -42,7 +42,7 @@ module.exports = function (objectrepository) {
                 };
             }
         }
-        
+
         let setter;
         if (imgPath !== null) {
             setter = {
