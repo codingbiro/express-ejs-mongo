@@ -38,6 +38,8 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
                 theOrders = orders;
+                console.log('hey: ');
+                console.log(orders);
             });
             console.log(anApp.lid);
             console.log(req.session.userId);
