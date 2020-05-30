@@ -13,7 +13,7 @@ module.exports = function (objectrepository) {
     return function (req, res, next) {
         let theid = 0;
         if (req.params.id !== undefined) theid = req.params.paymentId;
-        if (req.body !== undefined) console.log("theasd2: " + req.body);
+        //if (req.body !== undefined) console.log("theasd2: " + req.body);
         console.log("theasd1: " + theid);
         return next();
         /*
