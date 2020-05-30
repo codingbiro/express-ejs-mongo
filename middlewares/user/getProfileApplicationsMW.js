@@ -29,7 +29,7 @@ module.exports = function (objectrepository) {
                 theUser = user;
             });
 
-            await orderModel.findMany({ lid: anApp.lid }, (err, orders) => {
+            await orderModel.find({ lid: anApp.lid }, (err, orders) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',
