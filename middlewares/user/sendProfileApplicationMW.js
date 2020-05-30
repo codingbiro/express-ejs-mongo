@@ -23,7 +23,7 @@ module.exports = function (objectrepository) {
             const uId = String(req.session.userId);
 
             userModel.updateOne({ _id: theid },
-                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(uId), lid: mongoose.Types.ObjectId(lid)}] } },
+                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(uId), lid: mongoose.Types.ObjectId(thelid)}] } },
                 (err) => {
                     if (err) {
                         req.session.sessionFlash = {
@@ -35,7 +35,7 @@ module.exports = function (objectrepository) {
                     }
                 });
             await userModel.updateOne({ _id: uId },
-                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(theid), lid: mongoose.Types.ObjectId(lid) }] } },
+                { $addToSet: { apps: [{ uid: mongoose.Types.ObjectId(theid), lid: mongoose.Types.ObjectId(thelid) }] } },
                 (err) => {
                     if (err) {
                         req.session.sessionFlash = {
