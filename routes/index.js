@@ -159,8 +159,13 @@ module.exports = function (app) {
     // Jelentkezes egy tanarhoz
     app.get('/profile/:id/apply',
         authMW(),
-        payMW(objRepo),
         sendProfileApplicationMW(objRepo)
+    );
+
+    app.get('/profile/:id/pay',
+        //check if already applied for
+        authMW(),
+        payMW(objRepo)
     );
 
     // Logout

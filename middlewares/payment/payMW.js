@@ -37,7 +37,8 @@ module.exports = function (objectrepository) {
             }
             theUser = user;
         });
-
+        
+        // Ez neha igaz, miert
         if (theUser == null) {
             return next('hiba');
         }

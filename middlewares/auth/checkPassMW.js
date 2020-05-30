@@ -23,7 +23,7 @@ module.exports = function (objectrepository) {
             theUser = user;
         });
 
-        if (theUser) {
+        if (theUser != null) {
             if (req.body.password === theUser.password) {
                 req.session.isLoggedIn = true;
                 req.session.userMail = theUser.email;
