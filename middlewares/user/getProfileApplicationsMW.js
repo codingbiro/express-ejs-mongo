@@ -51,8 +51,8 @@ module.exports = function (objectrepository) {
             if (res.locals.user.role === 'teacher') {
                 console.log('asddsa');
                 theOrder = theOrders.filter(o => o._user == anApp.uid);
-                console.log(theOrders[0]._user);
-                console.log(anApp.uid);
+                console.log(String(theOrders[0]._user));
+                console.log(String(anApp.uid));
                 console.log(theOrder);
                 console.log(String(theOrders[0]._user) === String(anApp.uid));
             }
