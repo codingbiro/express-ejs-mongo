@@ -48,7 +48,12 @@ module.exports = function (objectrepository) {
             console.log(theOrders);
             let theOrder = [];
             if (res.locals.user.role === 'student') theOrder = theOrders.filter(o => o._user == req.session.userId);
-            if (res.locals.user.role === 'teacher') theOrder = theOrders.filter(o => o._user == anApp.uid);
+            if (res.locals.user.role === 'teacher') {
+                console.log('asddsa');
+                theOrder = theOrders.filter(o => o._user == anApp.uid);
+                console.log(theOrders[0]._user);
+                console.log(anApp.uid);
+            }
             let theState = '';
             if (theOrder.length === 1) theState = theOrder[0].state;
             console.log(theOrder);
