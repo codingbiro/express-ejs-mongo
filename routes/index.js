@@ -17,6 +17,7 @@ const deleteProfileCalendarMW = require('../middlewares/user/deleteProfileCalend
 const sendProfileApplicationMW = require('../middlewares/user/sendProfileApplicationMW');
 const redirectLoggedInMW = require('../middlewares/auth/redirectLoggedInMW');
 const payMW = require('../middlewares/payment/payMW');
+const barionCBMW = require('../middlewares/payment/barionCBMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -33,6 +34,9 @@ module.exports = function (app) {
         getProfilesMW(objRepo),
         renderMW(objRepo, 'index')
     );
+
+    // Payment cb
+    app.post('/:paymentId', barionCBMW(objRepo));
 
     // Thankyou page
     app.get('/thanks',

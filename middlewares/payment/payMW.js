@@ -42,7 +42,7 @@ module.exports = function (objectrepository) {
         }
 
         const InputProperties = {
-            "POSKey": "8cd4af88ffa5471e960b3de7adc8e68d",
+            "POSKey": PRIVATE_POS_KEY,
             "PaymentType": "Immediate",
             "GuestCheckOut": "true",
             "FundingSources": ["All"],
