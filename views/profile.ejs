@@ -48,7 +48,7 @@
             <td><%= utils.formatDate(lesson.start) %></td>
             <td><%= lesson.duration %></td>
             <td><%= lesson.subject %></td>
-            <td><a href="apply/<%= lesson._id %>"><button class="uk-button uk-button-primary uk-button-small">Apply</button></a></td>
+            <td><a href="<%= user._id %>/apply/<%= lesson._id %>"><button class="uk-button uk-button-primary uk-button-small">Apply</button></a></td>
           </tr>
       <% }); %>
       <% if ( lessons.length === 0) { %>
