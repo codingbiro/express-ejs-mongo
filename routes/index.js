@@ -147,7 +147,7 @@ module.exports = function (app) {
     );
 
     app.post('/login/iforgot',
-        resetPassMW(),
+        resetPassMW(objRepo),
         redirectMW('login')
     );
 
