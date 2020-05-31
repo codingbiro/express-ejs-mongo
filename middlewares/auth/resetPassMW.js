@@ -3,7 +3,7 @@ const crypto = require('crypto');
 require('dotenv').config();
 
 module.exports = function (objectrepository) {
-    return function (req, res, next) {
+    return asnyc function (req, res, next) {
         const userModel = objectrepository.userModel;
         const resetModel = objectrepository.resetModel;
 
@@ -37,7 +37,7 @@ module.exports = function (objectrepository) {
 
                     return next(err);
                 }
-                
+
                 const url = `https://math.biro.wtf/resetpassword/${hash}`;
 
                 const transporter = nodemailer.createTransport({
