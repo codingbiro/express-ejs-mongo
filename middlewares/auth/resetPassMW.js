@@ -41,15 +41,17 @@ module.exports = function (objectrepository) {
                 const url = `https://math.biro.wtf/resetpassword/${hash}`;
 
                 const transporter = nodemailer.createTransport({
-                    service: 'gmail',
+                    host: "smtp.mailgun.org",
+                    port: 587,
+                    secure: false, // upgrade later with STARTTLS
                     auth: {
-                        user: 'quick.biro@gmail.com',
-                        pass: 'Laklik98'
+                        user: process.env.NODE_ENV ? process.env.MG_MATH_BIROVINCE_P : '',
+                        pass: process.env.NODE_ENV ? process.env.MG_USER : ''
                     }
                 });
 
                 const mailOptions = {
-                    from: 'hello@math.biro',
+                    from: 'hello@birovince.com',
                     to: theUser.email,
                     subject: 'Password reset',
                     text: 'Click this magic link to reset your password: ' + url
