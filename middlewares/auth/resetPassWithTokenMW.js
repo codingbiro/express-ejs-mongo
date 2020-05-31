@@ -41,7 +41,7 @@ module.exports = function (objectrepository) {
         }
 
         let theReset = null;
-        await resetModel.findOne({ hash: token }, (err, reset) => {
+        await resetModel.findOne({ _id: token }, (err, reset) => {
             if (err) {
                 req.session.sessionFlash = {
                     type: 'danger',
@@ -56,7 +56,7 @@ module.exports = function (objectrepository) {
         if (theReset != null) {
             if (theReset.valid) {
                 if (pass != null) {
-                    await userModel.updateOne({ _id: req.session.userId },
+                    await userModel.updateOne({ _id: theReset._user },
                         {
                             $set: {
                                 password: pass,

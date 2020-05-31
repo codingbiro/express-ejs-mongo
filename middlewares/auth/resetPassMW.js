@@ -38,7 +38,7 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
 
-                const url = `https://math.biro.wtf/resetpassword/${result._id}${result.hash}`;
+                const url = `https://math.biro.wtf/resetpassword/${result._id}`;
 
                 const transporter = nodemailer.createTransport({
                     host: "smtp.mailgun.org",
