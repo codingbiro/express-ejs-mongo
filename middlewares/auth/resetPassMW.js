@@ -3,7 +3,7 @@ const crypto = require('crypto');
 require('dotenv').config();
 
 module.exports = function (objectrepository) {
-    return asnyc function (req, res, next) {
+    return async function (req, res, next) {
         const userModel = objectrepository.userModel;
         const resetModel = objectrepository.resetModel;
 
