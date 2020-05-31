@@ -53,7 +53,7 @@ module.exports = function (objectrepository) {
                     from: 'iforgot@biro.wtf',
                     to: theUser.email,
                     subject: 'Password reset',
-                    text: 'Click this magic link to reset your password: ' + url
+                    text: 'Hi '+theUser.name+'! Click this magic link to reset your password: ' + url
                 };
 
                 transporter.sendMail(mailOptions, function (error, info) {
