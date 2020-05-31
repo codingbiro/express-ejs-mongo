@@ -24,12 +24,14 @@ const getLessonsMW = require('../middlewares/user/getLessonsMW');
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
 const orderModel = require('../models/order');
+const resetModel = require('../models/reset');
 
 module.exports = function (app) {
     const objRepo = {
         userModel: userModel,
         lessonModel: lessonModel,
-        orderModel: orderModel
+        orderModel: orderModel,
+        resetModel: resetModel,
     };
 
     // Barion cb
@@ -144,11 +146,10 @@ module.exports = function (app) {
         redirectMW('login')
     );
 
-    // Login oldalrol elerheto iforgot POST, tehat elkuldi a jelszo resetet emailre es fooldal redirect
-    /* Future feature
-    app.post('/login/iforgot', function (req,res) {
-        resetPassMW();
-    });*/
+    app.post('/login/iforgot',
+        resetPassMW(),
+        redirectMW('login')
+    );
 
     // Profile oldal, betolti az adott profil adatait
     app.get('/profile/:id',
