@@ -28,7 +28,7 @@ module.exports = function (objectrepository) {
                 .update('I love cupcakes')
                 .digest('hex');
 
-            resetModel.create({ hash: hash, _user: theUser._id, valid: true }, (err) => {
+            resetModel.create({ hash: hash, _user: theUser._id, valid: true }, (err, result) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',
@@ -38,7 +38,7 @@ module.exports = function (objectrepository) {
                     return next(err);
                 }
 
-                const url = `https://math.biro.wtf/resetpassword/${hash}`;
+                const url = `https://math.biro.wtf/resetpassword/${result._id}${result.hash}`;
 
                 const transporter = nodemailer.createTransport({
                     host: "smtp.mailgun.org",

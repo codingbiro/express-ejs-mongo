@@ -92,11 +92,27 @@ module.exports = function (objectrepository) {
 
                     req.session.sessionFlash = {
                         type: 'success',
-                        message: 'Profile updating has been successful.',
+                        message: 'New password has been set successfully.',
                     };
 
                     return next();
                 }
+                else {
+                    req.session.sessionFlash = {
+                        type: 'danger',
+                        message: 'Invalid password. Try again with the given link.',
+                    };
+        
+                    return next();
+                }
+            }
+            else {
+                req.session.sessionFlash = {
+                    type: 'danger',
+                    message: 'Invalid token.',
+                };
+    
+                return next();
             }
         }
         else {
