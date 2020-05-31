@@ -9,7 +9,7 @@ module.exports = function (objectrepository) {
 
         let theUser = null;
 
-        await userModel.findOne({ email: req.body.email }, (err, user) => {
+        await userModel.findOne({ email: req.body.resetemail }, (err, user) => {
             if (err) {
                 req.session.sessionFlash = {
                     type: 'danger',
