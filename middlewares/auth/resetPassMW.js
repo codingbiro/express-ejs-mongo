@@ -44,13 +44,13 @@ module.exports = function (objectrepository) {
                     port: 587,
                     secure: false, // upgrade later with STARTTLS
                     auth: {
-                        user: process.env.NODE_ENV ? process.env.MG_USER : '',
-                        pass: process.env.NODE_ENV ? process.env.MG_MATH_BIROVINCE_P : ''
+                        user: process.env.NODE_ENV ? process.env.MG_USER_2 : '',
+                        pass: process.env.NODE_ENV ? process.env.MG_BIRO_WTF_P : ''
                     }
                 });
 
                 const mailOptions = {
-                    from: 'reset@birovince.com',
+                    from: 'iforgot@biro.wtf',
                     to: theUser.email,
                     subject: 'Password reset',
                     text: 'Click this magic link to reset your password: ' + url
