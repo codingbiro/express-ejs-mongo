@@ -20,6 +20,7 @@ const payMW = require('../middlewares/payment/payMW');
 const barionCBMW = require('../middlewares/payment/barionCBMW');
 const getOrdersMW = require('../middlewares/payment/getOrdersMW');
 const getLessonsMW = require('../middlewares/user/getLessonsMW');
+const resetPassWithTokenMW = require('../middlewares/auth/resetPassWithTokenMW');
 
 const userModel = require('../models/user');
 const lessonModel = require('../models/lesson');
@@ -148,6 +149,16 @@ module.exports = function (app) {
 
     app.post('/login/iforgot',
         resetPassMW(objRepo),
+        redirectMW('login')
+    );
+
+    app.get('/resetpassword/:token',
+        getProfileDataMW(objRepo),
+        renderMW(objRepo, 'resetpassword')
+    );
+
+    app.post('/resetpassword/:token',
+        resetPassWithTokenMW(objRepo),
         redirectMW('login')
     );
 

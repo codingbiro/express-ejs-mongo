@@ -44,7 +44,7 @@ module.exports = function (objectrepository) {
         }
 
         let setter;
-        if (imgPath !== null) {
+        if (imgPath != null) {
             setter = {
                 $set: {
                     desc: desc,
@@ -78,7 +78,7 @@ module.exports = function (objectrepository) {
                 }
             });
 
-        if (pass) {
+        if (pass != null) {
             userModel.updateOne({ _id: req.session.userId },
                 {
                     $set: {
