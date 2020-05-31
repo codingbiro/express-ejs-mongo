@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 module.exports = function (objectrepository) {
@@ -11,6 +12,15 @@ module.exports = function (objectrepository) {
         const pass2 = req.body.pass2 ? req.body.pass2 : null;
         let pass = null;
         const token = String(req.params.token);
+
+        if (!mongoose.Types.ObjectId.isValid(token)) {
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'Invalid token.',
+            };
+
+            return next();
+        }
 
         if (pass1 && pass2) {
             if (pass1 === pass2) {

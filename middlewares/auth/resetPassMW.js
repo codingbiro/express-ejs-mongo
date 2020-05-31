@@ -40,7 +40,7 @@ module.exports = function (objectrepository) {
                 const url = `https://math.biro.wtf/resetpassword/${result._id}`;
 
                 const transporter = nodemailer.createTransport({
-                    host: "smtp.mailgun.org",
+                    host: "smtp.eu.mailgun.org",
                     port: 587,
                     secure: false, // upgrade later with STARTTLS
                     auth: {
