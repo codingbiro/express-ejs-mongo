@@ -22,13 +22,12 @@ module.exports = function (objectrepository) {
         });
 
         if (theUser != null) {
-
             const secret = process.env.NODE_ENV ? process.env.HASH_SECRET : 'ASDASDasd';
             const hash = crypto.createHmac('sha256', secret)
                 .update('I love cupcakes')
                 .digest('hex');
 
-            resetModel.create({ hash: hash, _user: theUser._id, valid: true }, (err, result) => {
+            await resetModel.create({ hash: hash, _user: theUser._id, valid: true }, (err, result) => {
                 if (err) {
                     req.session.sessionFlash = {
                         type: 'danger',
@@ -64,14 +63,13 @@ module.exports = function (objectrepository) {
                         console.log('Email sent: ' + info.response);
                     }
                 });
-
-                req.session.sessionFlash = {
-                    type: 'success',
-                    message: 'If the given email address exists in our system, an e-mail should be on its way with the further steps.',
-                };
-
-                return next();
             });
         }
+        req.session.sessionFlash = {
+            type: 'success',
+            message: 'If the given email address exists in our system, an e-mail should be on its way with the further steps.',
+        };
+
+        return next();
     };
 };

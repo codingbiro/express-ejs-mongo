@@ -73,7 +73,7 @@ module.exports = function (objectrepository) {
                             }
                         });
 
-                    await resetModel.updateOne({ hash: token },
+                    await resetModel.updateOne({ _id: token },
                         {
                             $set: {
                                 valid: false,
