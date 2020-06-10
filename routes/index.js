@@ -118,7 +118,7 @@ module.exports = function (app) {
         authMW(objRepo),
         getProfileDataMW(objRepo),
         getProfileApplicationsMW(objRepo),
-        ()=>(console.log('getapp')),
+        (req,res,next)=>{console.log('getapp');next();},
         renderMW(objRepo, 'dashboard/applications')
     );
 
