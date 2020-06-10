@@ -31,7 +31,7 @@
     <div uk-form-custom="target: true" uk-tooltip="title: Accepted file types: png/jpg/jpeg; pos: right">
       <img src="<%= user.img ? user.img : 'assets/avatar-placeholder.gif' %>" width="30" alt="<%= user.name %>'s profile picture" />
       <input type="file" name="img">
-      <input class="uk-input uk-form-width-small" type="text" placeholder="Upload here">
+      <input class="uk-input uk-form-width-small" type="text" placeholder="Upload here" autocomplete="off">
       <div class="uk-text-small uk-inline">Your picture</div>
     </div>
     <div class="uk-width-1-3@s uk-text-center" style="line-height: 40px;">
